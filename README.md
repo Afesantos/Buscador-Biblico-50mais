@@ -1,38 +1,48 @@
 # Buscador Bíblico - Ministério 50+ 📖
 
-Uma aplicação web leve, rápida e com foco em acessibilidade para busca, leitura e escuta de textos bíblicos. Desenvolvida com uma interface limpa e amigável, ideal para o público do **Ministério 50+** e otimizada para ser utilizada de forma independente ou incorporada em apresentações (como no Canva).
+Uma aplicação web moderna, acessível, rápida e intuitiva para busca, leitura e compartilhamento de textos bíblicos. Desenvolvida com uma interface limpa, elegante e pensada especialmente no conforto visual e facilidade de uso para o público do **Ministério 50+**, além de ser otimizada para uso em qualquer dispositivo ou incorporação em apresentações (como Canva).
 
-## 🚀 Funcionalidades
+---
 
-* **Busca Intuitiva:** Digite referências de forma natural (ex: `Apocalipse 19` ou `João 3:16`) e o texto é estruturado instantaneamente na tela.
-* **Múltiplas Versões (Português do Brasil):** 
+## 🚀 Principais Funcionalidades
+
+* **🎙️ Busca por Comando de Voz (Web Speech API):** Toque no botão de microfone dentro do campo de busca e fale a passagem bíblica desejada (ex: *"Salmo 23"*, *"João 3:16"*). O sistema reconhece a fala e busca imediatamente.
+* **✨ Menu Flutuante ao Tocar no Versículo:** Leitura 100% limpa, sem poluição visual. Ao clicar ou tocar sobre qualquer versículo, abre-se um menu suspenso de contexto com as opções:
+  * **Copiar Versículo:** Copia o texto formatado com referência e versão para a área de transferência.
+  * **Enviar no WhatsApp:** Abre o WhatsApp com o versículo e referência formatados prontos para envio.
+* **📖 Índice Visual e Navegador de Capítulos:** Clique em qualquer livro no índice para abrir uma janela visual e navegar rapidamente para qualquer capítulo.
+* **↕️ Controle de Recolher / Expandir:** Botão dedicado para alternar a exibição da leitura bíblica conforme a necessidade.
+* **🔤 Acessibilidade Visual e Zoom:** Controles dinâmicos (`A-` e `A+`) para ampliar ou diminuir a fonte em tempo real.
+* **🎨 Temas de Conforto de Leitura:**
+  * **☀️ Claro:** Alto contraste para ambientes iluminados.
+  * **📜 Sépia:** Redução de fadiga ocular com tons suaves de pergaminho.
+  * **🌙 Escuro:** Modo noturno para leitura em ambientes escuros.
+* **📚 Versões Bíblicas em Português:**
   * Almeida Corrigida Fiel (ACF)
   * Nova Versão Internacional (NVI)
-  * Almeida Revisada Imprensa Bíblica (AA)
-* **Acessibilidade Visual (Zoom):** Controles dinâmicos (`A-` e `A+`) para ajustar o tamanho da fonte em tempo real, garantindo uma leitura confortável em qualquer tela.
-* **Leitura em Áudio (Text-to-Speech):** Botão "Ouvir" integrado que utiliza a síntese de voz nativa do navegador para narrar os capítulos e versículos de forma fluida e ritmada.
-* **Troca Ágil de Versões:** O texto pesquisado é atualizado automaticamente ao selecionar uma nova versão no menu, sem necessidade de clicar no botão de busca novamente.
-* **Design Confortável:** Tipografia *Merriweather* (clássica para leitura longa) aliada a um fundo em degradê suave para descanso dos olhos.
+  * Almeida Revisada (AA)
+* **⚡ Alta Performance e Modo Offline (IndexedDB):** Os textos são salvos localmente em IndexedDB no navegador, carregando instantaneamente nas próximas consultas.
+* **⬆️ Navegação Facilitada:** Botões de capítulo anterior/próximo e atalho flutuante para voltar ao topo.
+
+---
 
 ## 🛠️ Tecnologias Utilizadas
 
-* **Front-end:** HTML5, CSS3 e JavaScript puro (Vanilla JS).
-* **Tipografia:** Google Fonts (Merriweather e Segoe UI).
-* **Áudio:** Web Speech API nativa do navegador.
-* **Fonte de Dados (API):** Consumo estático de arquivos JSON hospedados no repositório aberto [thiagobodruk/bible](https://github.com/thiagobodruk/bible). A aplicação possui cache inteligente em memória, o que significa que o banco de dados é baixado apenas uma vez por versão durante a sessão, garantindo alta velocidade e evitando falhas de conexão (CORS).
+* **Front-end:** HTML5, CSS3 moderno com variáveis CSS e JavaScript puro (Vanilla JS).
+* **Tipografia:** Google Fonts (*Merriweather* para leitura bíblica e *Plus Jakarta Sans* para interface).
+* **Voz e Reconhecimento:** Web Speech API nativa do navegador.
+* **Armazenamento e Cache:** IndexedDB e LocalStorage para persistência de preferências de tema e tamanho de fonte.
+* **Fonte de Dados:** Repositório aberto JSON de versões bíblicas em língua portuguesa.
 
-## 🌐 Como Acessar
-
-Acesse a aplicação diretamente pelo navegador através do link do GitHub Pages:
-
-👉 **[LINK DA APLICAÇÃO]** *https://afesantos.github.io/Buscador-Biblico-50mais/*
-
-> **Dica para Apresentações:** Esse link pode ser utilizado no aplicativo "Incorporar" (Embed) do Canva, permitindo consultar e exibir textos bíblicos ao vivo, sem sair do seu slide.
+---
 
 ## 💻 Como Rodar Localmente
 
-Por não possuir back-end ou banco de dados local, a execução no seu computador é extremamente simples:
-
-1. Faça o clone deste repositório na sua máquina:
+1. Clone o repositório ou baixe os arquivos:
    ```bash
-   git clone [https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git](https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git)
+   git clone https://github.com/SEU-USUARIO/Buscador-Biblico-50mais.git
+   ```
+2. Abra o arquivo `index.html` em qualquer navegador web moderno ou sirva através de um servidor local:
+   ```bash
+   npm start
+   ```
