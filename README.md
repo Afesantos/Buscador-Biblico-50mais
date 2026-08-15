@@ -25,7 +25,7 @@ Uma aplicação web leve, rápida e com foco em acessibilidade para busca, leitu
 
 Acesse a aplicação diretamente pelo navegador através do link do GitHub Pages:
 
-👉 **[LINK DA APLICAÇÃO]** *https://github.com/Afesantos/Buscador-Biblico-50-*
+👉 **[LINK DA APLICAÇÃO]** *https://afesantos.github.io/Buscador-Biblico-50mais/*
 
 > **Dica para Apresentações:** Esse link pode ser utilizado no aplicativo "Incorporar" (Embed) do Canva, permitindo consultar e exibir textos bíblicos ao vivo, sem sair do seu slide.
 
