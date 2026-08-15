@@ -13,7 +13,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,700;1,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -105,12 +105,25 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             text-decoration: none;
             user-select: none;
             text-align: center;
+            flex-wrap: wrap;
         }
         .app-title:hover { opacity: 0.88; }
+        
+        .app-version-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            background: var(--primary-light);
+            border: 1px solid var(--primary-color);
+            padding: 2px 8px;
+            border-radius: 12px;
+            letter-spacing: 0.4px;
+            vertical-align: middle;
+        }
         
         .brand-logo-container {
             display: inline-flex;
@@ -294,7 +307,7 @@
             flex-wrap: wrap;
         }
 
-        .btn-toggle, .btn-books-shortcut {
+        .btn-toggle {
             padding: 8px 14px;
             height: 38px;
             background: var(--card-bg);
@@ -310,10 +323,40 @@
             gap: 6px;
             transition: all 0.2s;
         }
-        .btn-toggle:hover, .btn-books-shortcut:hover {
+        .btn-toggle:hover {
             background: var(--primary-light);
             color: var(--primary-color);
             border-color: var(--primary-color);
+        }
+
+        /* Botão Alternar Negrito */
+        .btn-bold-toggle {
+            padding: 8px 14px;
+            height: 38px;
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.88rem;
+            font-weight: 700;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            user-select: none;
+        }
+        .btn-bold-toggle:hover {
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .btn-bold-toggle.active {
+            background: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-sm);
         }
 
         /* Seletor de Tema */
@@ -393,7 +436,7 @@
         .chapter-header-info {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 4px;
             flex: 1;
             min-width: 240px;
         }
@@ -403,34 +446,14 @@
             font-weight: 800;
             line-height: 1.25;
         }
-        .chapter-info-tags {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 8px;
-            margin-top: 2px;
-        }
-        .chapter-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 5px 12px;
-            background: var(--verse-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            font-size: 0.88rem;
-            color: var(--text-main);
-            white-space: nowrap;
+        .chapter-version-info {
+            font-size: 0.95rem;
+            color: var(--text-muted);
             font-weight: 500;
         }
-        .chapter-tag strong {
+        .chapter-version-info strong {
             color: var(--primary-color);
             font-weight: 700;
-        }
-        .chapter-tag.version-tag {
-            background: var(--primary-light);
-            border-color: var(--primary-color);
-            color: var(--primary-color);
         }
         .btn-change-chapter {
             background: var(--primary-light);
@@ -479,6 +502,14 @@
 
         .verse-content {
             display: block;
+        }
+
+        /* Modo de Leitura em Negrito */
+        body.reading-bold .verse-item,
+        .reading-bold .verse-item,
+        .reading-bold .verse-content,
+        .reading-bold .verse-text {
+            font-weight: 700 !important;
         }
 
         .verse-number {
@@ -967,9 +998,9 @@
             .btn-search { width: 100%; justify-content: center; }
             
             .secondary-controls-bar { flex-direction: column; align-items: stretch; gap: 12px; padding: 12px 10px; margin-bottom: 20px; }
-            .action-buttons-group { width: 100%; justify-content: space-between; }
+            .action-buttons-group { width: 100%; display: flex; gap: 8px; }
             .settings-controls-group { width: 100%; justify-content: space-between; }
-            .btn-toggle, .btn-books-shortcut { flex: 1; justify-content: center; }
+            .btn-toggle, .btn-bold-toggle { flex: 1; justify-content: center; }
             
             .verse-item { padding: 14px 12px; }
             .books-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -1037,6 +1068,7 @@
                 </span>
             </span>
             Buscador bíblico Ministério 50+
+            <span class="app-version-tag">v1.1.0</span>
         </h1>
     </header>
     
@@ -1080,9 +1112,9 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" id="toggleIcon"><polyline points="18 15 12 9 6 15"></polyline></svg>
                 <span id="toggleText">Recolher Leitura</span>
             </button>
-            <button class="btn-books-shortcut" onclick="rolarParaIndiceLivros()" title="Ir direto para o índice de livros da Bíblia">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                <span>Índice de Livros</span>
+            <button class="btn-bold-toggle" id="btnToggleBold" onclick="alternarNegrito()" title="Ativar ou desativar texto em negrito na leitura" aria-label="Texto em negrito">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"></path><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"></path></svg>
+                <span>Negrito</span>
             </button>
         </div>
 
@@ -1217,13 +1249,14 @@
     </button>
 
     <div class="footer-copy">
-        Buscador bíblico Ministério 50+ | Versão 1.0.0 | Desenvolvido por Agnaldo Fernandes © 2026 | Contato: <a href="mailto:afesantos@gmail.com">afesantos@gmail.com</a>
+        Buscador bíblico Ministério 50+ | Versão 1.1.0 | Desenvolvido por Agnaldo Fernandes © 2026 | Contato: <a href="mailto:afesantos@gmail.com">afesantos@gmail.com</a>
     </div>
 </div>
 
 <script>
     let bibliaData = {}; 
     let tamanhoFonte = 1.125;
+    let textoNegrito = false;
     let estadoAtual = { abrev: '', capitulo: 1, totalCapitulos: 1, versiculoInicio: null, versiculoFim: null };
     let versiculoSelecionadoParaAcao = null;
 
@@ -1470,12 +1503,34 @@
             const percent = Math.round((tamanhoFonte / 1.125) * 100);
             document.getElementById('fontIndicator').textContent = `${percent}%`;
         }
+
+        const negritoSalvo = localStorage.getItem('biblia_negrito') === 'true';
+        aplicarNegrito(negritoSalvo);
     }
 
-    function rolarParaIndiceLivros() {
-        const el = document.querySelector('.books-index');
-        if (el) {
-            el.scrollIntoView({ behavior: 'smooth' });
+    function alternarNegrito() {
+        textoNegrito = !textoNegrito;
+        aplicarNegrito(textoNegrito);
+        localStorage.setItem('biblia_negrito', textoNegrito ? 'true' : 'false');
+        mostrarToast(textoNegrito ? "Texto em negrito ativado" : "Texto normal ativado");
+    }
+
+    function aplicarNegrito(ativo) {
+        textoNegrito = !!ativo;
+        const body = document.body;
+        const btnBold = document.getElementById('btnToggleBold');
+        if (textoNegrito) {
+            body.classList.add('reading-bold');
+            if (btnBold) {
+                btnBold.classList.add('active');
+                btnBold.title = "Desativar texto em negrito";
+            }
+        } else {
+            body.classList.remove('reading-bold');
+            if (btnBold) {
+                btnBold.classList.remove('active');
+                btnBold.title = "Ativar texto em negrito";
+            }
         }
     }
 
@@ -1682,19 +1737,8 @@
             <div class="chapter-header-box">
                 <div class="chapter-header-info">
                     <h2>${nomeReal} — Capítulo ${numCapitulo}${tituloVersiculos}</h2>
-                    <div class="chapter-info-tags">
-                        <span class="chapter-tag" title="Livro selecionado">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                            <strong>Livro:</strong> ${nomeReal}
-                        </span>
-                        <span class="chapter-tag" title="Capítulo em leitura">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                            <strong>Capítulo:</strong> ${numCapitulo}${labelVersiculo}
-                        </span>
-                        <span class="chapter-tag version-tag" title="Versão da Bíblia">
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                            <strong>Versão:</strong> ${nomeVersao}
-                        </span>
+                    <div class="chapter-version-info">
+                        Versão: <strong>${nomeVersao}</strong>
                     </div>
                 </div>
                 <button class="btn-change-chapter" onclick="abrirSeletorCapitulosAtual()" title="Trocar de capítulo">
