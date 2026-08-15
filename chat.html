@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversa e Estudo Bíblico — Ministério 50+ | Igreja Batista Redenção</title>
+    
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,700;1,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            /* Tema Claro (Padrão) */
+            --bg-color: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text-main: #212529;
+            --text-muted: #6C757D;
+            --primary-color: #2F6F4E;
+            --primary-hover: #24583E;
+            --primary-light: #EBF3EE;
+            --accent-color: #C28B38;
+            --accent-light: #FBF4E8;
+            --border-color: #E2E8F0;
+            --highlight-bg: #FFF3CD;
+            --verse-bg: #F8FAFC;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 25px rgba(47, 111, 78, 0.12);
+            --radius-md: 10px;
+            --radius-lg: 14px;
+        }
+
+        /* Tema Sépia */
+        body.theme-sepia {
+            --bg-color: #F4E8D1;
+            --card-bg: #FAF2E2;
+            --text-main: #433422;
+            --text-muted: #7D6B56;
+            --primary-color: #7A4E2D;
+            --primary-hover: #5E3B20;
+            --primary-light: #EBDDC4;
+            --accent-color: #A3642C;
+            --accent-light: #F2E4D0;
+            --border-color: #DFCDB2;
+            --highlight-bg: #ECD6AC;
+            --verse-bg: #F1E3C8;
+        }
+
+        /* Tema Escuro */
+        body.theme-dark {
+            --bg-color: #121417;
+            --card-bg: #1C1F24;
+            --text-main: #F1F3F5;
+            --text-muted: #ADB5BD;
+            --primary-color: #4E9F74;
+            --primary-hover: #63B58A;
+            --primary-light: #1E2D24;
+            --accent-color: #E0A953;
+            --accent-light: #382E1E;
+            --border-color: #2D3239;
+            --highlight-bg: #473B1B;
+            --verse-bg: #23272E;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 24px 16px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            padding: 36px 32px;
+            position: relative;
+        }
+
+        /* Header e Marca */
+        header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .header-top-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn-back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border: 1.5px solid var(--primary-color);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-back-home:hover {
+            background: var(--primary-color);
+            color: #ffffff;
+            transform: translateX(-2px);
+        }
+
+        .app-title {
+            color: var(--primary-color);
+            font-size: 1.7rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+            user-select: none;
+            text-align: center;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .app-version-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            background: var(--primary-light);
+            border: 1px solid var(--primary-color);
+            padding: 2px 8px;
+            border-radius: 12px;
+            letter-spacing: 0.4px;
+        }
+
+        .brand-logo-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            padding: 4px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+        .brand-logo {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .page-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* Barra de Controles Rápidos (Tema, Fonte, Negrito) */
+        .controls-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--verse-bg);
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn-bold-toggle {
+            padding: 7px 12px;
+            height: 36px;
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .btn-bold-toggle:hover {
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .btn-bold-toggle.active {
+            background: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+        }
+
+        .theme-selector {
+            display: inline-flex;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 3px;
+            gap: 4px;
+        }
+        .theme-btn {
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover { color: var(--text-main); }
+        .theme-btn.active {
+            background: var(--primary-color);
+            color: #ffffff;
+        }
+
+        .font-controls {
+            display: inline-flex;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 3px;
+            gap: 4px;
+        }
+        .font-controls button {
+            border: none;
+            background: transparent;
+            color: var(--text-main);
+            padding: 4px 10px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .font-controls button:hover { background: var(--primary-light); color: var(--primary-color); }
+        .font-indicator {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            padding: 0 4px;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        /* Cartão de Contexto do Livro */
+        .context-card {
+            background: var(--primary-light);
+            border: 1.5px solid var(--primary-color);
+            border-radius: var(--radius-md);
+            padding: 20px 22px;
+            margin-bottom: 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .context-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .context-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .context-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .context-select, .context-input {
+            padding: 8px 12px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--card-bg);
+            color: var(--text-main);
+            font-size: 0.95rem;
+            font-weight: 600;
+            outline: none;
+            font-family: inherit;
+        }
+        .context-select:focus, .context-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        /* Seção de Sugestões de Tópicos */
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+        .topic-card {
+            background: var(--verse-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .topic-card:hover {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        .topic-card-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--primary-color);
+        }
+        .topic-card-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Caixa de Pergunta e Voz */
+        .query-box-container {
+            margin-bottom: 26px;
+        }
+        .query-textarea-wrapper {
+            position: relative;
+            margin-bottom: 12px;
+        }
+        .query-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 16px 50px 16px 16px;
+            font-family: 'Merriweather', serif;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .query-textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(47, 111, 78, 0.15);
+        }
+        .btn-mic-inside {
+            position: absolute;
+            right: 14px;
+            top: 14px;
+            background: var(--verse-bg);
+            border: 1.5px solid var(--border-color);
+            color: var(--text-muted);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-mic-inside:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+        }
+        .btn-mic-inside.recording {
+            background: #FF4D4D !important;
+            color: #ffffff !important;
+            border-color: #FF4D4D !important;
+            animation: pulse-recording 1.2s infinite ease-in-out;
+        }
+        @keyframes pulse-recording {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.5); }
+            70% { transform: scale(1.08); box-shadow: 0 0 0 10px rgba(255, 77, 77, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); }
+        }
+
+        /* Banner de Destino Exclusivo */
+        .source-guarantee-banner {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--accent-light);
+            border: 1px solid var(--accent-color);
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.45;
+        }
+        .source-guarantee-banner strong {
+            color: var(--accent-color);
+        }
+
+        /* Ações Principais de Envio */
+        .action-buttons-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        .btn-send-main {
+            flex: 2;
+            min-width: 240px;
+            padding: 16px 24px;
+            background: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        .btn-send-main:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            color: #ffffff;
+        }
+        .btn-copy-prompt, .btn-clear-prompt {
+            padding: 16px 20px;
+            background: var(--verse-bg);
+            color: var(--text-main);
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+        .btn-copy-prompt:hover, .btn-clear-prompt:hover {
+            background: var(--primary-light);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* Histórico de Perguntas Recentes */
+        .recent-history-section {
+            border-top: 1px solid var(--border-color);
+            padding-top: 24px;
+            margin-top: 24px;
+        }
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .history-item {
+            background: var(--verse-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .history-item:hover {
+            border-color: var(--primary-color);
+            background: var(--primary-light);
+        }
+        .history-item-text {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Guia Rápido 50+ */
+        .guide-box {
+            background: var(--verse-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px 22px;
+            margin-top: 28px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .guide-box h5 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .guide-box ol {
+            padding-left: 20px;
+            color: var(--text-main);
+        }
+        .guide-box li {
+            margin-bottom: 6px;
+        }
+
+        /* Botão Voltar Inferior */
+        .bottom-nav-container {
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        /* Rodapé */
+        .footer-copy {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 30px;
+            line-height: 1.5;
+        }
+        .footer-copy a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Modo de Leitura em Negrito */
+        body.reading-bold .query-textarea,
+        body.reading-bold .context-title,
+        body.reading-bold .guide-box,
+        body.reading-bold .topic-card-desc,
+        body.reading-bold .history-item-text {
+            font-weight: 700 !important;
+        }
+
+        /* Toast de Notificação */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(33, 37, 41, 0.95);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            pointer-events: none;
+        }
+        #toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .container { padding: 24px 16px; }
+            .app-title { font-size: 1.4rem; }
+            .header-top-nav { flex-direction: column; align-items: stretch; }
+            .btn-back-home { justify-content: center; }
+            .topics-grid { grid-template-columns: 1fr; }
+            .action-buttons-row { flex-direction: column; }
+            .btn-chat-primary, .btn-copy-prompt { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="header-top-nav">
+            <a href="index.html" class="btn-back-home" title="Retornar para a leitura bíblica principal">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                <span>Voltar para a Bíblia</span>
+            </a>
+
+            <div class="theme-selector" role="radiogroup" aria-label="Modo de Leitura">
+                <button class="theme-btn active" id="theme-light" onclick="definirTema('light')">☀️ Claro</button>
+                <button class="theme-btn" id="theme-sepia" onclick="definirTema('sepia')">📜 Sépia</button>
+                <button class="theme-btn" id="theme-dark" onclick="definirTema('dark')">🌙 Escuro</button>
+            </div>
+        </div>
+
+        <h1 class="app-title">
+            <span class="brand-logo-container">
+                <img src="logo50mais.png" alt="Logo Ministério 50+" class="brand-logo" onerror="this.onerror=null; this.src='favicon.ico';">
+            </span>
+            Buscador bíblico Ministério 50+
+            <span class="app-version-tag">v1.3.0</span>
+        </h1>
+        <div class="page-subtitle">Estudo & Conversa Bíblica — Igreja Batista Redenção</div>
+    </header>
+
+    <!-- Barra de Ajustes Rápidos -->
+    <div class="controls-bar">
+        <button class="btn-bold-toggle" id="btnToggleBold" onclick="alternarNegrito()" title="Ativar ou desativar texto em negrito">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"></path><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"></path></svg>
+            <span>Negrito</span>
+        </button>
+
+        <div class="font-controls" aria-label="Ajustar tamanho da fonte">
+            <button onclick="mudarFonte(-0.1)" title="Diminuir fonte">A-</button>
+            <span class="font-indicator" id="fontIndicator">100%</span>
+            <button onclick="mudarFonte(0.1)" title="Aumentar fonte">A+</button>
+        </div>
+    </div>
+
+    <!-- Cartão de Contexto: Livro e Capítulo Selecionado -->
+    <div class="context-card">
+        <div class="context-header">
+            <div class="context-title">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                </svg>
+                <span id="labelLivroFoco">Estudo Bíblico em Foco</span>
+            </div>
+            <div class="context-controls">
+                <select id="selectLivroEstudo" class="context-select" onchange="atualizarContextoLivro()" title="Escolha um livro da Bíblia">
+                    <option value="">Tema Bíblico Geral</option>
+                    <!-- Antigo Testamento -->
+                    <optgroup label="Antigo Testamento">
+                        <option value="Gênesis">Gênesis</option>
+                        <option value="Êxodo">Êxodo</option>
+                        <option value="Levítico">Levítico</option>
+                        <option value="Números">Números</option>
+                        <option value="Deuteronômio">Deuteronômio</option>
+                        <option value="Josué">Josué</option>
+                        <option value="Juízes">Juízes</option>
+                        <option value="Rute">Rute</option>
+                        <option value="1 Samuel">1 Samuel</option>
+                        <option value="2 Samuel">2 Samuel</option>
+                        <option value="1 Reis">1 Reis</option>
+                        <option value="2 Reis">2 Reis</option>
+                        <option value="1 Crônicas">1 Crônicas</option>
+                        <option value="2 Crônicas">2 Crônicas</option>
+                        <option value="Esdras">Esdras</option>
+                        <option value="Neemias">Neemias</option>
+                        <option value="Ester">Ester</option>
+                        <option value="Jó">Jó</option>
+                        <option value="Salmos">Salmos</option>
+                        <option value="Provérbios">Provérbios</option>
+                        <option value="Eclesiastes">Eclesiastes</option>
+                        <option value="Cânticos">Cânticos</option>
+                        <option value="Isaías">Isaías</option>
+                        <option value="Jeremias">Jeremias</option>
+                        <option value="Lamentações">Lamentações</option>
+                        <option value="Ezequiel">Ezequiel</option>
+                        <option value="Daniel">Daniel</option>
+                        <option value="Oseias">Oseias</option>
+                        <option value="Joel">Joel</option>
+                        <option value="Amós">Amós</option>
+                        <option value="Obadias">Obadias</option>
+                        <option value="Jonas">Jonas</option>
+                        <option value="Miqueias">Miqueias</option>
+                        <option value="Naum">Naum</option>
+                        <option value="Habacuque">Habacuque</option>
+                        <option value="Sofonias">Sofonias</option>
+                        <option value="Ageu">Ageu</option>
+                        <option value="Zacarias">Zacarias</option>
+                        <option value="Malaquias">Malaquias</option>
+                    </optgroup>
+                    <!-- Novo Testamento -->
+                    <optgroup label="Novo Testamento">
+                        <option value="Mateus">Mateus</option>
+                        <option value="Marcos">Marcos</option>
+                        <option value="Lucas">Lucas</option>
+                        <option value="João">João</option>
+                        <option value="Atos">Atos</option>
+                        <option value="Romanos">Romanos</option>
+                        <option value="1 Coríntios">1 Coríntios</option>
+                        <option value="2 Coríntios">2 Coríntios</option>
+                        <option value="Gálatas">Gálatas</option>
+                        <option value="Efésios">Efésios</option>
+                        <option value="Filipenses">Filipenses</option>
+                        <option value="Colossenses">Colossenses</option>
+                        <option value="1 Tessalonicenses">1 Tessalonicenses</option>
+                        <option value="2 Tessalonicenses">2 Tessalonicenses</option>
+                        <option value="1 Timóteo">1 Timóteo</option>
+                        <option value="2 Timóteo">2 Timóteo</option>
+                        <option value="Tito">Tito</option>
+                        <option value="Filemom">Filemom</option>
+                        <option value="Hebreus">Hebreus</option>
+                        <option value="Tiago">Tiago</option>
+                        <option value="1 Pedro">1 Pedro</option>
+                        <option value="2 Pedro">2 Pedro</option>
+                        <option value="1 João">1 João</option>
+                        <option value="2 João">2 João</option>
+                        <option value="3 João">3 João</option>
+                        <option value="Judas">Judas</option>
+                        <option value="Apocalipse">Apocalipse</option>
+                    </optgroup>
+                </select>
+                <input type="number" id="inputCapituloEstudo" class="context-input" placeholder="Capítulo" min="1" max="150" style="width: 95px;" onchange="atualizarContextoLivro()" title="Número do Capítulo">
+            </div>
+        </div>
+    </div>
+
+    <!-- Sugestões Rápidas de Estudo -->
+    <div class="section-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span>Ideias de Pesquisa e Perguntas Prontas</span>
+    </div>
+
+    <div class="topics-grid">
+        <div class="topic-card" onclick="aplicarTopicoSugerido('contexto')">
+            <div class="topic-card-header">
+                <span>📖 Contexto & Autor</span>
+            </div>
+            <div class="topic-card-desc">Quem escreveu, em qual época histórica e qual era o propósito da mensagem?</div>
+        </div>
+
+        <div class="topic-card" onclick="aplicarTopicoSugerido('aplicacao')">
+            <div class="topic-card-header">
+                <span>💡 Aplicação Prática</span>
+            </div>
+            <div class="topic-card-desc">Quais lições práticas e espirituais posso aplicar na minha vida hoje?</div>
+        </div>
+
+        <div class="topic-card" onclick="aplicarTopicoSugerido('teologia')">
+            <div class="topic-card-header">
+                <span>✝️ Significado Teológico</span>
+            </div>
+            <div class="topic-card-desc">O que este texto ensina sobre Deus, a graça e a salvação em Jesus Cristo?</div>
+        </div>
+
+        <div class="topic-card" onclick="aplicarTopicoSugerido('personagens')">
+            <div class="topic-card-header">
+                <span>👥 Personagens Bíblicos</span>
+            </div>
+            <div class="topic-card-desc">Quais pessoas aparecem no relato e o que seus exemplos nos ensinam?</div>
+        </div>
+
+        <div class="topic-card" onclick="aplicarTopicoSugerido('esboco')">
+            <div class="topic-card-header">
+                <span>📝 Esboço de Estudo</span>
+            </div>
+            <div class="topic-card-desc">Elabore um roteiro de estudo com introdução, 3 tópicos e conclusão.</div>
+        </div>
+
+        <div class="topic-card" onclick="aplicarTopicoSugerido('duvidas')">
+            <div class="topic-card-header">
+                <span>❓ Perguntas & Respostas</span>
+            </div>
+            <div class="topic-card-desc">Quais as dúvidas mais frequentes sobre esta passagem bíblica?</div>
+        </div>
+    </div>
+
+    <!-- Caixa Principal de Mensagem / Pergunta -->
+    <div class="query-box-container">
+        <div class="section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>Sua Pergunta ou Tema de Pesquisa:</span>
+        </div>
+
+        <div class="query-textarea-wrapper">
+            <textarea id="queryTextarea" class="query-textarea" placeholder="Digite sua pergunta ou clique no microfone para falar... (Ex: 'Gostaria de entender a mensagem principal de João 3 e como aplicar hoje')"></textarea>
+            <button class="btn-mic-inside" id="btnMic" onclick="alternarGravacaoVoz()" title="Falar pergunta pelo microfone">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+            </button>
+        </div>
+
+        <!-- Garantia de Destino da Pesquisa -->
+        <div class="source-guarantee-banner">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            <div>
+                Todas as respostas são fundamentadas nas Escrituras Sagradas e alinhadas aos princípios da <strong>Igreja Batista Redenção</strong>.
+            </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div class="action-buttons-row">
+            <button class="btn-send-main" id="btnEnviarChatGPT" onclick="enviarParaChatGPT()" title="Enviar pergunta e abrir diretamente no assistente oficial da Igreja Batista Redenção no ChatGPT">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+                <span>Enviar Pergunta para o ChatGPT</span>
+            </button>
+
+            <button class="btn-copy-prompt" onclick="copiarPergunta()" title="Copiar o texto da pergunta">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copiar</span>
+            </button>
+
+            <button class="btn-clear-prompt" onclick="limparPergunta()" title="Limpar o campo de pergunta">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+                <span>Limpar</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Histórico de Perguntas Recentes -->
+    <div class="recent-history-section" id="recentHistorySection" style="display: none;">
+        <div class="section-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span>Pesquisas Recentes Feitas por Você</span>
+        </div>
+        <div class="history-list" id="historyList"></div>
+    </div>
+
+    <!-- Guia de Operação para Idosos / 50+ -->
+    <div class="guide-box">
+        <h5>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+            Como Funciona:
+        </h5>
+        <ol>
+            <li><strong>Escolha o Livro ou Tema:</strong> Selecione o livro acima ou clique em uma das ideias de perguntas prontas.</li>
+            <li><strong>Fale ou Digite:</strong> Se preferir não digitar, clique no botão de microfone 🎤 e fale sua dúvida naturalmente.</li>
+            <li><strong>Clique em "Enviar Pergunta para o ChatGPT":</strong> Sua pergunta será enviada diretamente para o assistente exclusivo da <strong>Igreja Batista Redenção</strong> no ChatGPT.</li>
+            <li><strong>Volte quando quiser:</strong> Use o botão "Voltar para a Página Principal" para continuar sua leitura dos capítulos da Bíblia.</li>
+        </ol>
+    </div>
+
+    <div class="bottom-nav-container">
+        <a href="index.html" class="btn-back-home">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Voltar para a Página Principal de Leitura</span>
+        </a>
+    </div>
+
+    <div class="footer-copy">
+        Buscador bíblico Ministério 50+ | Versão 1.3.0 | Assistente Igreja Batista Redenção © 2026 | Contato: <a href="mailto:afesantos@gmail.com">afesantos@gmail.com</a>
+    </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+    const CHATGPT_BASE_URL = "https://chatgpt.com/g/g-68ab53c1ba608191b04a4fb8d5f1a74d-igreja-batista-redencao";
+    let recognition = null;
+    let isRecording = false;
+    let tamanhoFonte = 1.0;
+    let textoNegrito = false;
+    let textoRespostaAtual = "";
+    let synthUtterance = null;
+    let isSpeaking = false;
+
+    // Inicialização ao carregar a página
+    document.addEventListener('DOMContentLoaded', () => {
+        carregarPreferenciasVisual();
+        processarParametrosURL();
+        carregarHistoricoRecente();
+        inicializarReconhecimentoVoz();
+    });
+
+    // Processa parâmetros da URL (ex: ?livro=João&cap=3&busca=...)
+    function processarParametrosURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const livroParam = urlParams.get('livro');
+        const capParam = urlParams.get('cap') || urlParams.get('capitulo');
+        const temaParam = urlParams.get('tema') || urlParams.get('q');
+
+        if (livroParam) {
+            const selectLivro = document.getElementById('selectLivroEstudo');
+            for (let i = 0; i < selectLivro.options.length; i++) {
+                if (selectLivro.options[i].value.toLowerCase() === livroParam.toLowerCase() ||
+                    selectLivro.options[i].text.toLowerCase() === livroParam.toLowerCase()) {
+                    selectLivro.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+
+        if (capParam) {
+            document.getElementById('inputCapituloEstudo').value = capParam;
+        }
+
+        atualizarContextoLivro();
+
+        if (temaParam) {
+            document.getElementById('queryTextarea').value = temaParam;
+        } else if (livroParam) {
+            const capTexto = capParam ? ` capítulo ${capParam}` : '';
+            document.getElementById('queryTextarea').value = `Olá! Gostaria de fazer um estudo detalhado e edificante sobre o livro de ${livroParam}${capTexto}. Poderia me explicar o contexto, principais lições práticas e ensinamentos espirituais?`;
+        }
+    }
+
+    function atualizarContextoLivro() {
+        const livro = document.getElementById('selectLivroEstudo').value;
+        const cap = document.getElementById('inputCapituloEstudo').value;
+        const label = document.getElementById('labelLivroFoco');
+
+        if (livro && cap) {
+            label.textContent = `Estudo: ${livro}, Capítulo ${cap}`;
+        } else if (livro) {
+            label.textContent = `Estudo: Livro de ${livro}`;
+        } else {
+            label.textContent = `Estudo Bíblico Geral e Doutrinário`;
+        }
+    }
+
+    function aplicarTopicoSugerido(tipo) {
+        const livro = document.getElementById('selectLivroEstudo').value;
+        const cap = document.getElementById('inputCapituloEstudo').value;
+        const referencia = livro ? (cap ? `${livro} capítulo ${cap}` : `o livro de ${livro}`) : 'a Bíblia Sagrada';
+        const textarea = document.getElementById('queryTextarea');
+
+        let pergunta = '';
+        switch(tipo) {
+            case 'contexto':
+                pergunta = `Gostaria de entender o contexto histórico, autor e propósito central de ${referencia}. Quem escreveu, para quem e qual era a situação na época?`;
+                break;
+            case 'aplicacao':
+                pergunta = `Quais são as principais lições práticas e conselhos para a vida cristã diária que podemos extrair de ${referencia}?`;
+                break;
+            case 'teologia':
+                pergunta = `Qual o significado teológico e doutrinário presente em ${referencia}? Como esta passagem aponta para Deus e a obra de Jesus Cristo?`;
+                break;
+            case 'personagens':
+                pergunta = `Quem são os personagens e pessoas mencionadas em ${referencia}? Quais lições de fé, fidelidade ou advertência podemos aprender com eles?`;
+                break;
+            case 'esboco':
+                pergunta = `Poderia elaborar um esboço de estudo bíblico / mensagem sobre ${referencia}? Com introdução clara, 3 pontos principais explicados e conclusão pastoral prática.`;
+                break;
+            case 'duvidas':
+                pergunta = `Quais são as perguntas e dúvidas mais frequentes sobre ${referencia}, e quais são as respostas bíblicas para cada uma delas?`;
+                break;
+        }
+
+        textarea.value = pergunta;
+        textarea.focus();
+        mostrarToast('Pergunta carregada! Clique em "Enviar Pergunta" para ver a resposta.');
+    }
+
+    // Envia a pergunta para a IA no backend e renderiza a resposta logo abaixo
+    async function enviarPerguntaDireta() {
+        let pergunta = document.getElementById('queryTextarea').value.trim();
+        const livro = document.getElementById('selectLivroEstudo').value;
+        const cap = document.getElementById('inputCapituloEstudo').value;
+        const btnEnviar = document.getElementById('btnEnviarDireto');
+        const btnTexto = document.getElementById('btnEnviarDiretoTexto');
+        const respContainer = document.getElementById('responseContainer');
+        const respLoading = document.getElementById('responseLoading');
+        const respCard = document.getElementById('responseCard');
+        const respBody = document.getElementById('responseBody');
+
+        if (!pergunta) {
+            if (livro) {
+                const capTexto = cap ? ` capítulo ${cap}` : '';
+                pergunta = `Gostaria de estudar o livro de ${livro}${capTexto}. Poderia me trazer uma explicação bíblica detalhada e prática?`;
+                document.getElementById('queryTextarea').value = pergunta;
+            } else {
+                mostrarToast('Por favor, digite ou fale sua pergunta antes de enviar.');
+                document.getElementById('queryTextarea').focus();
+                return;
+            }
+        }
+
+        // Salva no histórico
+        salvarPerguntaNoHistorico(pergunta);
+
+        // Parar eventual áudio anterior
+        pararAudio();
+
+        // Ativa container e loading
+        respContainer.classList.add('active');
+        respLoading.style.display = 'flex';
+        respCard.style.display = 'none';
+        btnEnviar.disabled = true;
+        btnTexto.textContent = 'Consultando...';
+
+        // Rola a página suavemente até o início da resposta
+        respContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    prompt: pergunta,
+                    livro: livro,
+                    capitulo: cap
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Não foi possível obter resposta no momento.');
+            }
+
+            textoRespostaAtual = data.answer || '';
+            respBody.innerHTML = formatarTextoResposta(textoRespostaAtual);
+            respLoading.style.display = 'none';
+            respCard.style.display = 'block';
+            mostrarToast('Resposta bíblica gerada com sucesso! ✨');
+        } catch (err) {
+            console.error('Erro ao consultar assistente:', err);
+            respLoading.style.display = 'none';
+            respCard.style.display = 'block';
+
+            respBody.innerHTML = `
+                <div style="background: var(--verse-bg); padding: 18px 20px; border-radius: 8px; border-left: 4px solid #e65100; margin-bottom: 16px;">
+                    <p style="margin: 0 0 10px 0; font-weight: 700; color: #e65100;">Não foi possível completar a consulta automática no momento.</p>
+                    <p style="margin: 0 0 12px 0;">Você pode continuar a conversa e obter sua resposta imediatamente no assistente oficial da <strong>Igreja Batista Redenção</strong> no ChatGPT.</p>
+                    <button class="btn-send-main" onclick="enviarParaChatGPT()" style="padding: 10px 18px; font-size: 0.95rem;">
+                        Abrir no ChatGPT da Igreja Batista Redenção ↗
+                    </button>
+                </div>
+            `;
+            mostrarToast('Aviso: você pode abrir a pergunta no ChatGPT.');
+        } finally {
+            btnEnviar.disabled = false;
+            btnTexto.textContent = 'Enviar Pergunta';
+        }
+    }
+
+    // Formata o texto Markdown/teológico para HTML elegante
+    function formatarTextoResposta(texto) {
+        if (!texto) return '';
+
+        // Escapa tags html inseguras
+        let html = texto
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+
+        // Formatação de títulos ###
+        html = html.replace(/^### (.*$)/gim, '<h4 style="color: var(--primary-color); font-weight: 800; margin: 20px 0 10px 0; font-size: 1.15rem;">$1</h4>');
+        html = html.replace(/^## (.*$)/gim, '<h3 style="color: var(--primary-color); font-weight: 800; margin: 22px 0 12px 0; font-size: 1.25rem;">$1</h3>');
+
+        // Formatação de Negrito **texto**
+        html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+        // Formatação de Itálico *texto*
+        html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+        // Citações em bloco >
+        html = html.replace(/^\> (.*$)/gim, '<blockquote>$1</blockquote>');
+
+        // Tópicos em listas - ou *
+        const linhas = html.split('\n');
+        let emLista = false;
+        let resultado = [];
+
+        for (let i = 0; i < linhas.length; i++) {
+            let linha = linhas[i].trim();
+            if (linha.startsWith('- ') || linha.startsWith('* ')) {
+                if (!emLista) {
+                    resultado.push('<ul>');
+                    emLista = true;
+                }
+                resultado.push(`<li>${linha.substring(2)}</li>`);
+            } else {
+                if (emLista) {
+                    resultado.push('</ul>');
+                    emLista = false;
+                }
+                if (linha.length > 0) {
+                    if (linha.startsWith('<h') || linha.startsWith('<block')) {
+                        resultado.push(linha);
+                    } else {
+                        resultado.push(`<p>${linha}</p>`);
+                    }
+                }
+            }
+        }
+        if (emLista) {
+            resultado.push('</ul>');
+        }
+
+        return resultado.join('\n');
+    }
+
+    // Leitura em Voz Alta (SpeechSynthesis)
+    function alternarAudioResposta() {
+        if (!('speechSynthesis' in window)) {
+            mostrarToast('Seu navegador não possui suporte para síntese de voz.');
+            return;
+        }
+
+        if (isSpeaking) {
+            pararAudio();
+            mostrarToast('Áudio pausado.');
+            return;
+        }
+
+        if (!textoRespostaAtual) {
+            mostrarToast('Nenhuma resposta disponível para leitura.');
+            return;
+        }
+
+        // Remove marcadores markdown para leitura limpa
+        const textoLimpo = textoRespostaAtual
+            .replace(/[#*>\-_`]/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+
+        window.speechSynthesis.cancel();
+        synthUtterance = new SpeechSynthesisUtterance(textoLimpo);
+        synthUtterance.lang = 'pt-BR';
+        synthUtterance.rate = 0.95; // Velocidade confortável para pessoas 50+
+
+        // Tenta encontrar uma voz em Português
+        const vozes = window.speechSynthesis.getVoices();
+        const vozPt = vozes.find(v => v.lang.includes('pt-BR') || v.lang.includes('pt'));
+        if (vozPt) {
+            synthUtterance.voice = vozPt;
+        }
+
+        synthUtterance.onstart = () => {
+            isSpeaking = true;
+            document.getElementById('btnAudioResposta').classList.add('speaking');
+            document.getElementById('labelAudioResposta').textContent = 'Pausar Áudio';
+            mostrarToast('Lendo resposta em voz alta... 🔊');
+        };
+
+        synthUtterance.onend = () => {
+            pararAudio();
+        };
+
+        synthUtterance.onerror = () => {
+            pararAudio();
+        };
+
+        window.speechSynthesis.speak(synthUtterance);
+    }
+
+    function pararAudio() {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+        }
+        isSpeaking = false;
+        const btn = document.getElementById('btnAudioResposta');
+        if (btn) {
+            btn.classList.remove('speaking');
+            document.getElementById('labelAudioResposta').textContent = 'Ouvir Resposta';
+        }
+    }
+
+    function copiarResposta() {
+        if (!textoRespostaAtual) {
+            mostrarToast('Nenhuma resposta disponível para copiar.');
+            return;
+        }
+
+        navigator.clipboard.writeText(textoRespostaAtual).then(() => {
+            mostrarToast('Resposta copiada para a área de transferência! 📋');
+        }).catch(() => {
+            mostrarToast('Não foi possível copiar automaticamente.');
+        });
+    }
+
+    function limparPergunta() {
+        document.getElementById('queryTextarea').value = '';
+        pararAudio();
+        textoRespostaAtual = '';
+        const respContainer = document.getElementById('responseContainer');
+        respContainer.classList.remove('active');
+        document.getElementById('responseCard').style.display = 'none';
+        document.getElementById('responseLoading').style.display = 'none';
+        document.getElementById('queryTextarea').focus();
+        mostrarToast('Campos limpos!');
+    }
+
+    function enviarParaChatGPT() {
+        let pergunta = document.getElementById('queryTextarea').value.trim();
+        const livro = document.getElementById('selectLivroEstudo').value;
+        const cap = document.getElementById('inputCapituloEstudo').value;
+
+        if (!pergunta) {
+            if (livro) {
+                const capTexto = cap ? ` capítulo ${cap}` : '';
+                pergunta = `Gostaria de estudar o livro de ${livro}${capTexto}. Poderia me trazer uma explicação bíblica detalhada e prática?`;
+            } else {
+                mostrarToast('Por favor, digite ou fale sua pergunta antes de abrir o ChatGPT.');
+                document.getElementById('queryTextarea').focus();
+                return;
+            }
+        }
+
+        // Salva no histórico local
+        salvarPerguntaNoHistorico(pergunta);
+
+        // Monta a URL de destino direta para o Custom GPT da Igreja Batista Redenção
+        const encodedPrompt = encodeURIComponent(pergunta);
+        const targetUrl = `${CHATGPT_BASE_URL}?q=${encodedPrompt}`;
+
+        // Abre em nova aba para facilitar a alternância
+        window.open(targetUrl, '_blank');
+    }
+
+    function copiarPergunta() {
+        const texto = document.getElementById('queryTextarea').value.trim();
+        if (!texto) {
+            mostrarToast('Digite ou selecione uma pergunta primeiro para copiar.');
+            return;
+        }
+
+        navigator.clipboard.writeText(texto).then(() => {
+            mostrarToast('Pergunta copiada para a área de transferência! 📋');
+        }).catch(() => {
+            mostrarToast('Não foi possível copiar automaticamente.');
+        });
+    }
+
+    function salvarPerguntaNoHistorico(pergunta) {
+        try {
+            let historico = JSON.parse(localStorage.getItem('biblia_historico_perguntas') || '[]');
+            historico = historico.filter(p => p !== pergunta);
+            historico.unshift(pergunta);
+            if (historico.length > 5) historico = historico.slice(0, 5);
+            localStorage.setItem('biblia_historico_perguntas', JSON.stringify(historico));
+            carregarHistoricoRecente();
+        } catch (e) {
+            console.error('Erro ao salvar histórico', e);
+        }
+    }
+
+    function carregarHistoricoRecente() {
+        try {
+            const historico = JSON.parse(localStorage.getItem('biblia_historico_perguntas') || '[]');
+            const container = document.getElementById('recentHistorySection');
+            const list = document.getElementById('historyList');
+
+            if (!historico || historico.length === 0) {
+                container.style.display = 'none';
+                return;
+            }
+
+            list.innerHTML = '';
+            historico.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'history-item';
+                div.innerHTML = `
+                    <div class="history-item-text">"${item}"</div>
+                    <button class="btn-copy-prompt" style="padding: 4px 10px; font-size: 0.8rem; height: auto;" onclick="event.stopPropagation(); usarPerguntaHistorico('${encodeURIComponent(item)}')">Usar</button>
+                `;
+                div.onclick = () => usarPerguntaHistorico(encodeURIComponent(item));
+                list.appendChild(div);
+            });
+
+            container.style.display = 'block';
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    function usarPerguntaHistorico(itemEncoded) {
+        const item = decodeURIComponent(itemEncoded);
+        document.getElementById('queryTextarea').value = item;
+        document.getElementById('queryTextarea').focus();
+        mostrarToast('Pergunta carregada do histórico!');
+    }
+
+    // Reconhecimento de Voz
+    function inicializarReconhecimentoVoz() {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) return;
+
+        recognition = new SpeechRecognition();
+        recognition.lang = 'pt-BR';
+        recognition.continuous = false;
+        recognition.interimResults = false;
+
+        recognition.onstart = () => {
+            isRecording = true;
+            document.getElementById('btnMic').classList.add('recording');
+            mostrarToast('Gravando... pode falar sua dúvida bíblica 🎤');
+        };
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            const textarea = document.getElementById('queryTextarea');
+            if (textarea.value.trim()) {
+                textarea.value += ' ' + transcript;
+            } else {
+                textarea.value = transcript;
+            }
+            mostrarToast(`Pergunta reconhecida: "${transcript}"`);
+        };
+
+        recognition.onerror = (event) => {
+            console.error(event);
+            mostrarToast('Não foi possível capturar o áudio. Tente novamente.');
+        };
+
+        recognition.onend = () => {
+            isRecording = false;
+            document.getElementById('btnMic').classList.remove('recording');
+        };
+    }
+
+    function alternarGravacaoVoz() {
+        if (!recognition) {
+            mostrarToast('Seu navegador não suporta pesquisa por voz.');
+            return;
+        }
+        if (isRecording) {
+            recognition.stop();
+        } else {
+            try {
+                recognition.start();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    }
+
+    // Ajustes de Visual (Sincronizado com o App Principal)
+    function carregarPreferenciasVisual() {
+        const temaSalvo = localStorage.getItem('biblia_tema') || 'light';
+        definirTema(temaSalvo);
+
+        const fonteSalva = localStorage.getItem('biblia_fonte');
+        if (fonteSalva) {
+            tamanhoFonte = parseFloat(fonteSalva);
+            aplicarFonte();
+        }
+
+        const negritoSalvo = localStorage.getItem('biblia_negrito') === 'true';
+        aplicarNegrito(negritoSalvo);
+    }
+
+    function definirTema(tema) {
+        document.body.classList.remove('theme-sepia', 'theme-dark');
+        document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+
+        if (tema === 'sepia') {
+            document.body.classList.add('theme-sepia');
+            document.getElementById('theme-sepia').classList.add('active');
+        } else if (tema === 'dark') {
+            document.body.classList.add('theme-dark');
+            document.getElementById('theme-dark').classList.add('active');
+        } else {
+            document.getElementById('theme-light').classList.add('active');
+        }
+        localStorage.setItem('biblia_tema', tema);
+    }
+
+    function mudarFonte(delta) {
+        tamanhoFonte += delta;
+        if (tamanhoFonte < 0.8) tamanhoFonte = 0.8;
+        if (tamanhoFonte > 1.6) tamanhoFonte = 1.6;
+        aplicarFonte();
+        localStorage.setItem('biblia_fonte', tamanhoFonte);
+    }
+
+    function aplicarFonte() {
+        const textarea = document.getElementById('queryTextarea');
+        if (textarea) {
+            textarea.style.fontSize = `${1.05 * tamanhoFonte}rem`;
+        }
+        const respBody = document.getElementById('responseBody');
+        if (respBody) {
+            respBody.style.fontSize = `${1.1 * tamanhoFonte}rem`;
+        }
+        const percent = Math.round(tamanhoFonte * 100);
+        document.getElementById('fontIndicator').textContent = `${percent}%`;
+    }
+
+    function alternarNegrito() {
+        textoNegrito = !textoNegrito;
+        aplicarNegrito(textoNegrito);
+        localStorage.setItem('biblia_negrito', textoNegrito ? 'true' : 'false');
+        mostrarToast(textoNegrito ? "Texto em negrito ativado" : "Texto normal ativado");
+    }
+
+    function aplicarNegrito(ativo) {
+        textoNegrito = !!ativo;
+        const btnBold = document.getElementById('btnToggleBold');
+        if (textoNegrito) {
+            document.body.classList.add('reading-bold');
+            if (btnBold) btnBold.classList.add('active');
+        } else {
+            document.body.classList.remove('reading-bold');
+            if (btnBold) btnBold.classList.remove('active');
+        }
+    }
+
+    function mostrarToast(mensagem) {
+        const toast = document.getElementById('toast');
+        toast.textContent = mensagem;
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3200);
+    }
+</script>
+
+</body>
+</html>

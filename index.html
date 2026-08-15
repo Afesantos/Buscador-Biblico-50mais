@@ -721,6 +721,97 @@
             color: var(--text-muted);
         }
 
+        /* ======== BOTÃO/SEÇÃO DE ESTUDO & CONVERSA BÍBLICA ======== */
+        .chat-assistant-section {
+            margin-top: 32px;
+            margin-bottom: 8px;
+        }
+        .chat-assistant-card {
+            background: var(--primary-light);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--radius-lg);
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .chat-assistant-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .chat-assistant-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+        }
+        .chat-assistant-icon-badge {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--primary-color);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-sm);
+        }
+        .chat-assistant-text h4 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+        .chat-assistant-text p {
+            font-size: 0.92rem;
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.45;
+        }
+        .btn-open-chat-page {
+            padding: 13px 22px;
+            background: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            white-space: nowrap;
+            text-decoration: none;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .btn-open-chat-page:hover {
+            background: var(--primary-hover);
+            transform: scale(1.02);
+            color: #ffffff;
+        }
+        @media (max-width: 680px) {
+            .chat-assistant-card {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 18px 16px;
+                gap: 16px;
+            }
+            .chat-assistant-info {
+                align-items: flex-start;
+            }
+            .btn-open-chat-page {
+                width: 100%;
+            }
+        }
+
         /* ======== ÍNDICE DE LIVROS ======== */
         .books-index {
             margin-top: 40px;
@@ -1068,7 +1159,7 @@
                 </span>
             </span>
             Buscador bíblico Ministério 50+
-            <span class="app-version-tag">v1.1.0</span>
+            <span class="app-version-tag">v1.3.0</span>
         </h1>
     </header>
     
@@ -1160,6 +1251,32 @@
         <div id="chapterPagination" class="chapter-pagination"></div>
     </div>
 
+    <!-- Botão / Seção para Estudo e Conversa Bíblica no ChatGPT Igreja Batista Redenção -->
+    <div class="chat-assistant-section" id="chatAssistantSection">
+        <div class="chat-assistant-card">
+            <div class="chat-assistant-info">
+                <div class="chat-assistant-icon-badge" title="Assistente Bíblico Igreja Batista Redenção">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        <line x1="8" y1="9" x2="16" y2="9"></line>
+                        <line x1="8" y1="13" x2="14" y2="13"></line>
+                    </svg>
+                </div>
+                <div class="chat-assistant-text">
+                    <h4 id="chatAssistantTitle">Deseja conversar e pesquisar sobre a Bíblia?</h4>
+                    <p id="chatAssistantDesc">Aprofunde seu estudo bíblico com o assistente exclusivo da <strong>Igreja Batista Redenção</strong>.</p>
+                </div>
+            </div>
+            <button class="btn-open-chat-page" id="btnOpenChatPage" onclick="abrirPaginaConversa()" title="Abrir página de estudo e conversa bíblica">
+                <span>Conversar & Pesquisar</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"></path>
+                    <path d="M12 5l7 7-7 7"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
     <div class="books-index">
         <h3>Índice de Livros (Clique para escolher o capítulo)</h3>
         <div class="books-grid">
@@ -1249,7 +1366,7 @@
     </button>
 
     <div class="footer-copy">
-        Buscador bíblico Ministério 50+ | Versão 1.1.0 | Desenvolvido por Agnaldo Fernandes © 2026 | Contato: <a href="mailto:afesantos@gmail.com">afesantos@gmail.com</a>
+        Buscador bíblico Ministério 50+ | Versão 1.3.0 | Desenvolvido por Agnaldo Fernandes © 2026 | Contato: <a href="mailto:afesantos@gmail.com">afesantos@gmail.com</a>
     </div>
 </div>
 
@@ -1813,7 +1930,43 @@
         }
 
         renderizarPaginacaoCapitulos(nomeReal, livroObj.chapters.length, numCapitulo);
+        atualizarCardAssistenteConversa(nomeReal, numCapitulo);
         window.scrollTo({ top: document.getElementById('readingContainer').offsetTop - 20, behavior: 'smooth' });
+    }
+
+    function atualizarCardAssistenteConversa(nomeLivro, capitulo) {
+        const titleElem = document.getElementById('chatAssistantTitle');
+        const descElem = document.getElementById('chatAssistantDesc');
+        if (titleElem && descElem) {
+            if (nomeLivro && capitulo) {
+                titleElem.textContent = `Deseja aprofundar seu estudo em ${nomeLivro} ${capitulo}?`;
+                descElem.innerHTML = `Converse, tire dúvidas e faça pesquisas sobre este texto ou outros temas bíblicos com o assistente exclusivo da <strong>Igreja Batista Redenção</strong>.`;
+            } else if (nomeLivro) {
+                titleElem.textContent = `Deseja aprofundar seu estudo em ${nomeLivro}?`;
+                descElem.innerHTML = `Converse e faça pesquisas sobre o livro de ${nomeLivro} com o assistente da <strong>Igreja Batista Redenção</strong>.`;
+            }
+        }
+    }
+
+    function abrirPaginaConversa() {
+        let params = [];
+        const limpa = (estadoAtual.abrev || '').toLowerCase().replace(/[\s\-_]/g, '');
+        const chaveCanon = aliasesLivros[limpa] || limpa;
+        const nomeReal = nomesLivros[chaveCanon] || estadoAtual.abrev;
+
+        if (nomeReal) {
+            params.push(`livro=${encodeURIComponent(nomeReal)}`);
+            if (estadoAtual.capitulo) {
+                params.push(`cap=${encodeURIComponent(estadoAtual.capitulo)}`);
+            }
+        } else {
+            const searchVal = document.getElementById('searchInput').value.trim();
+            if (searchVal) {
+                params.push(`tema=${encodeURIComponent(searchVal)}`);
+            }
+        }
+        const queryString = params.length > 0 ? `?${params.join('&')}` : '';
+        window.location.href = `chat.html${queryString}`;
     }
 
     function renderizarPaginacaoCapitulos(nomeLivro, totalCaps, capAtual) {
