@@ -10,18 +10,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
 
     <style>
+        * { box-sizing: border-box; }
+
         :root { --primary-color: #2c5f9e; --bg-color: #f4f6f9; --base-size: 1.125rem; }
         
-        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); padding: 20px; padding-bottom: 60vh; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg-color); padding: 20px; padding-bottom: 60vh; margin: 0; }
         
         .container { width: 100%; max-width: 800px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
 
-        h1 { color: var(--primary-color); text-align: center; font-size: 2rem; margin-bottom: 25px; }
+        /* Título clicável */
+        h1 { color: var(--primary-color); text-align: center; font-size: 2rem; margin-bottom: 25px; cursor: pointer; transition: opacity 0.3s; }
+        h1:hover { opacity: 0.8; }
         
-        .search-box { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        select { flex: 2; min-width: 250px; padding: 12px; border-radius: 6px; border: 1px solid #ccc; }
-        input { flex: 3; padding: 12px; border: 1px solid #ccc; border-radius: 6px; }
-        .btn-search { padding: 12px 25px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer; }
+        .search-box { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+        select { flex: 2; min-width: 200px; padding: 12px; border-radius: 6px; border: 1px solid #ccc; font-size: 1rem; }
+        input { flex: 3; min-width: 200px; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
+        .btn-search { padding: 12px 25px; background: var(--primary-color); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: bold; }
 
         .actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         
@@ -44,12 +48,39 @@
         }
 
         .verse-number { font-weight: 600; color: var(--primary-color); margin-right: 8px; font-size: 0.8em; vertical-align: super; }
-        h2 { color: var(--primary-color); font-family: 'Segoe UI', sans-serif; margin-top: 20px; }
+        h2 { color: var(--primary-color); font-family: 'Segoe UI', sans-serif; margin-top: 20px; margin-bottom: 15px; font-size: 1.5rem; }
+
+        .nav-buttons { display: none; justify-content: space-between; margin-top: 25px; gap: 10px; }
+        .btn-nav { padding: 12px 20px; background: #e2e8f0; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; color: var(--primary-color); transition: background 0.3s; flex: 1; max-width: 48%; }
+        .btn-nav:hover { background: #cbd5e1; }
+
+        /* ======== ESTILOS DA MENSAGEM DE BOAS-VINDAS ======== */
+        .welcome-msg { text-align: center; padding: 40px 20px; color: #475569; background: #f8fafc; border-radius: 8px; border: 2px dashed #cbd5e1; margin-top: 20px; }
+        .welcome-msg h3 { color: var(--primary-color); margin-bottom: 15px; font-size: 1.5rem; }
+        .welcome-msg p { line-height: 1.6; font-size: 1.05rem; margin-bottom: 10px; }
+        .welcome-msg ul { text-align: left; display: inline-block; margin: 0 auto; padding-left: 20px; line-height: 1.8; }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; padding-bottom: 40vh; }
+            .container { padding: 15px; }
+            h1 { font-size: 1.5rem; margin-bottom: 15px; }
+            
+            .search-box { flex-direction: column; gap: 12px; }
+            select, input, .btn-search { width: 100%; min-width: 100%; }
+            .btn-search { padding: 15px; font-size: 1.1rem; }
+            
+            .actions { flex-direction: column; align-items: flex-end; gap: 10px; }
+            .verse-item { padding: 10px; }
+            
+            .welcome-msg { padding: 20px 15px; }
+            .welcome-msg h3 { font-size: 1.25rem; }
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Buscador bíblico Ministério 50+</h1>
+    <!-- Adicionado evento onclick e title para acessibilidade -->
+    <h1 onclick="resetarPagina()" title="Clique para recarregar a página inicial">Buscador bíblico Ministério 50+</h1>
     
     <div class="search-box">
         <select id="versionSelect">
@@ -57,7 +88,7 @@
             <option value="pt_nvi">Nova Versão Internacional (NVI)</option>
             <option value="pt_aa">Almeida Revisada (AA)</option>
         </select>
-        <input type="text" id="searchInput" placeholder="Ex: Jo 3:16, Gn 1:1-3 ou apo 19">
+        <input type="text" id="searchInput" placeholder="Ex: Jo 3:16, Gn 1:1-3, Gênesis ou Salmos">
         <button class="btn-search" onclick="buscarTexto()">Buscar</button>
     </div>
 
@@ -69,12 +100,55 @@
         </div>
     </div>
 
-    <div id="results"></div>
+    <div id="results">
+        <!-- Mensagem de boas-vindas visível por padrão -->
+        <div class="welcome-msg">
+            <h3>Bem-vindo à Leitura Bíblica! 📖</h3>
+            <p>Utilize a barra de pesquisa acima para encontrar passagens da Bíblia de forma rápida.</p>
+            <p><strong>Como pesquisar:</strong></p>
+            <ul>
+                <li><strong>Apenas o Livro:</strong> <em>Salmos</em> (abre no cap. 1)</li>
+                <li><strong>Livro e Capítulo:</strong> <em>Gênesis 1</em></li>
+                <li><strong>Livro, Cap. e Versículo:</strong> <em>João 3:16</em></li>
+                <li><strong>Intervalo:</strong> <em>Romanos 8:1-5</em></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="navButtons" class="nav-buttons">
+        <button class="btn-nav" onclick="navegarCapitulo(-1)">&#8592; Anterior</button>
+        <button class="btn-nav" onclick="navegarCapitulo(1)">Próximo &#8594;</button>
+    </div>
 </div>
 
 <script>
     const bibleCache = {};
     let currentSize = 1.125;
+    
+    let currentBookData = null;
+    let currentChapterNum = 0;
+
+    // NOVA FUNÇÃO: Reseta a página para o estado inicial
+    function resetarPagina() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('navButtons').style.display = 'none';
+        currentBookData = null;
+        currentChapterNum = 0;
+        
+        document.getElementById('results').innerHTML = `
+            <div class="welcome-msg">
+                <h3>Bem-vindo à Leitura Bíblica! 📖</h3>
+                <p>Utilize a barra de pesquisa acima para encontrar passagens da Bíblia de forma rápida.</p>
+                <p><strong>Como pesquisar:</strong></p>
+                <ul>
+                    <li><strong>Apenas o Livro:</strong> <em>Salmos</em> (abre no cap. 1)</li>
+                    <li><strong>Livro e Capítulo:</strong> <em>Gênesis 1</em></li>
+                    <li><strong>Livro, Cap. e Versículo:</strong> <em>João 3:16</em></li>
+                    <li><strong>Intervalo:</strong> <em>Romanos 8:1-5</em></li>
+                </ul>
+            </div>
+        `;
+    }
 
     function mudarFonte(delta) {
         currentSize += delta;
@@ -112,15 +186,16 @@
 
     async function buscarTexto() {
         const query = document.getElementById('searchInput').value.trim();
-        const match = query.match(/^([a-zA-Z0-9\s]+?)\s+(\d+)(?:\s*:\s*(\d+)(?:\s*-\s*(\d+))?)?$/);
         
-        if (!match) { alert("Formato inválido. Use: Livro Capítulo:Verso-Verso"); return; }
+        const match = query.match(/^(.+?)(?:\s+(\d+)(?:\s*:\s*(\d+)(?:\s*-\s*(\d+))?)?)?$/);
+        
+        if (!match) { alert("Formato inválido. Use: Jo 3:16, Gênesis 1 ou apenas o Nome do Livro"); return; }
 
         const nomeBuscaOriginal = match[1].trim();
         const nomeBuscaSanitizado = removerAcentos(nomeBuscaOriginal.toLowerCase());
         const nomeLivroResolvido = resolverNomeLivro(nomeBuscaOriginal);
 
-        const cap = parseInt(match[2]);
+        const cap = match[2] ? parseInt(match[2]) : 1;
         const start = match[3] ? parseInt(match[3]) : null;
         const end = match[4] ? parseInt(match[4]) : start;
 
@@ -135,29 +210,24 @@
             const bookNormalizado = removerAcentos((b.book || "").toLowerCase());
             const abbrevNormalizado = removerAcentos((b.abbrev || "").toLowerCase());
 
-            // 1. Verifica pelo nome exato (resolvido ou do JSON)
             if (nameNormalizado === nomeBuscaSanitizado || bookNormalizado === nomeBuscaSanitizado) return true;
             if (nameNormalizado === removerAcentos(nomeLivroResolvido.toLowerCase())) return true;
-            
-            // 2. Verifica pelas siglas oficiais
             if (abbrevNormalizado === nomeBuscaSanitizado) return true;
-
-            // 3. Verifica pelas 3 (ou mais) primeiras letras
-            // Ex: "apo" vai bater com "apocalipse"
-            if (nomeBuscaSanitizado.length >= 3 && (nameNormalizado.startsWith(nomeBuscaSanitizado) || bookNormalizado.startsWith(nomeBuscaSanitizado))) {
-                return true;
-            }
+            if (nomeBuscaSanitizado.length >= 3 && (nameNormalizado.startsWith(nomeBuscaSanitizado) || bookNormalizado.startsWith(nomeBuscaSanitizado))) return true;
 
             return false;
         });
         
         if (!livro || !livro.chapters[cap - 1]) { alert("Livro ou capítulo não encontrado."); return; }
 
+        currentBookData = livro;
+        currentChapterNum = cap;
+        
         const versiculos = livro.chapters[cap - 1];
         let refTitle = `${livro.name || livro.book} ${cap}`;
         if (start) refTitle += start === end ? `:${start}` : `:${start}-${end}`;
         
-        let html = `<h2>${refTitle} - ${nomeVersao}</h2>`;
+        let html = `<h2 id="tituloCapitulo">${refTitle} - ${nomeVersao}</h2>`;
         
         const lista = start ? versiculos.slice(start - 1, end) : versiculos;
         lista.forEach((t, i) => {
@@ -165,6 +235,43 @@
         });
         
         document.getElementById('results').innerHTML = html;
+        
+        document.getElementById('navButtons').style.display = 'flex';
+        
+        document.getElementById('tituloCapitulo').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    async function navegarCapitulo(delta) {
+        if (!currentBookData) return;
+        
+        let novoCapitulo = currentChapterNum + delta;
+        let novoLivro = currentBookData;
+        const versao = document.getElementById('versionSelect').value;
+        const data = bibleCache[versao]; 
+
+        if (novoCapitulo < 1) {
+            let bookIndex = data.findIndex(b => (b.name || b.book) === (currentBookData.name || currentBookData.book));
+            if (bookIndex > 0) {
+                novoLivro = data[bookIndex - 1];
+                novoCapitulo = novoLivro.chapters.length;
+            } else {
+                alert("Você já está no início da Bíblia.");
+                return;
+            }
+        } 
+        else if (novoCapitulo > novoLivro.chapters.length) {
+            let bookIndex = data.findIndex(b => (b.name || b.book) === (currentBookData.name || currentBookData.book));
+            if (bookIndex < data.length - 1) {
+                novoLivro = data[bookIndex + 1];
+                novoCapitulo = 1;
+            } else {
+                alert("Você chegou ao final da Bíblia.");
+                return;
+            }
+        }
+
+        document.getElementById('searchInput').value = `${novoLivro.name || novoLivro.book} ${novoCapitulo}`;
+        buscarTexto();
     }
 
     async function fetchBible(v) {
