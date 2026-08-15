@@ -87,13 +87,11 @@
             transition: background-color 0.3s, border-color 0.3s;
         }
 
-        /* Barra superior: Título e controles de tema/fonte */
+        /* Barra superior: Título e Logo */
         .header-row {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
+            justify-content: center;
             margin-bottom: 24px;
             padding-bottom: 20px;
             border-bottom: 1px solid var(--border-color);
@@ -102,13 +100,15 @@
         .app-title {
             color: var(--primary-color);
             font-size: 1.55rem;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 12px;
             text-decoration: none;
             user-select: none;
+            text-align: center;
         }
         .app-title:hover { opacity: 0.88; }
         
@@ -152,81 +152,11 @@
             color: #60a5fa;
         }
 
-        .top-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        /* Seletor de Tema */
-        .theme-selector {
-            display: inline-flex;
-            background: var(--verse-bg);
-            padding: 3px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-color);
-        }
-        .theme-btn {
-            background: transparent;
-            border: none;
-            padding: 6px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.2s;
-        }
-        .theme-btn:hover { color: var(--text-main); }
-        .theme-btn.active {
-            background: var(--card-bg);
-            color: var(--primary-color);
-            box-shadow: var(--shadow-sm);
-        }
-        
-        /* Controle de Fonte */
-        .font-controls {
-            display: inline-flex;
-            align-items: center;
-            background: var(--verse-bg);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 3px 6px;
-            gap: 6px;
-        }
-        .font-controls button {
-            padding: 6px 12px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--text-main);
-            transition: all 0.2s;
-        }
-        .font-controls button:hover {
-            background: var(--primary-color);
-            color: #ffffff;
-            border-color: var(--primary-color);
-        }
-        .font-indicator {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            min-width: 44px;
-            text-align: center;
-        }
-
-        /* Formulário de Busca */
-        .search-box {
+        /* 1º LUGAR: Área Principal de Busca (Pesquisa + Versão + Botão Buscar) */
+        .search-box-primary {
             display: flex;
             gap: 14px;
-            margin-bottom: 24px;
+            margin-bottom: 14px;
             flex-wrap: wrap;
             align-items: flex-end;
         }
@@ -234,13 +164,12 @@
         .input-group { display: flex; flex-direction: column; gap: 6px; }
         .input-group.search-field { flex: 1.4; min-width: 240px; }
         .input-group.version-field { flex: 1; min-width: 200px; }
-        
-        .buttons-group { display: flex; gap: 10px; flex: 0; align-items: flex-end; }
+        .search-btn-wrapper { display: flex; align-items: flex-end; }
 
         .input-group label {
             font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-muted);
+            font-weight: 700;
+            color: var(--text-main);
             margin-left: 2px;
         }
 
@@ -314,7 +243,7 @@
         }
         
         .btn-search {
-            padding: 13px 24px;
+            padding: 13px 26px;
             height: 48px;
             background: var(--primary-color);
             color: white;
@@ -326,6 +255,7 @@
             white-space: nowrap;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             transition: background-color 0.2s, transform 0.1s;
         }
@@ -336,21 +266,117 @@
             transform: scale(0.98);
         }
 
-        .btn-toggle {
-            padding: 13px 16px;
-            height: 48px;
+        /* 2º LUGAR: Barra de Demais Botões e Controles Secundários (Abaixo de Busca/Versão/Buscar) */
+        .secondary-controls-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding: 12px 14px;
             background: var(--verse-bg);
-            color: var(--text-main);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
+        }
+
+        .action-buttons-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .settings-controls-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-toggle, .btn-books-shortcut {
+            padding: 8px 14px;
+            height: 38px;
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.92rem;
+            font-size: 0.88rem;
             font-weight: 600;
             white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             transition: all 0.2s;
         }
-        .btn-toggle:hover {
-            background: var(--verse-hover);
+        .btn-toggle:hover, .btn-books-shortcut:hover {
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* Seletor de Tema */
+        .theme-selector {
+            display: inline-flex;
+            background: var(--card-bg);
+            padding: 3px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+        .theme-btn {
+            background: transparent;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+        .theme-btn:hover { color: var(--text-main); }
+        .theme-btn.active {
+            background: var(--primary-light);
+            color: var(--primary-color);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        /* Controle de Fonte */
+        .font-controls {
+            display: inline-flex;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 3px 6px;
+            gap: 6px;
+        }
+        .font-controls button {
+            padding: 6px 12px;
+            background: var(--verse-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            transition: all 0.2s;
+        }
+        .font-controls button:hover {
+            background: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+        }
+        .font-indicator {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            min-width: 44px;
+            text-align: center;
         }
 
         /* Versículos e Texto Sagrado */
@@ -933,13 +959,17 @@
             body { padding: 12px 10px 10vh; }
             .container { padding: 20px 16px; border-radius: var(--radius-md); }
             .app-title { font-size: 1.3rem; }
-            .header-row { flex-direction: column; align-items: stretch; gap: 14px; }
-            .top-controls { justify-content: space-between; }
+            .header-row { margin-bottom: 18px; padding-bottom: 14px; }
             
-            .search-box { flex-direction: column; gap: 12px; align-items: stretch; }
+            .search-box-primary { flex-direction: column; gap: 12px; align-items: stretch; margin-bottom: 12px; }
             .input-group.search-field, .input-group.version-field { width: 100%; min-width: 100%; }
-            .buttons-group { width: 100%; }
-            .btn-search { flex: 1; justify-content: center; }
+            .search-btn-wrapper { width: 100%; }
+            .btn-search { width: 100%; justify-content: center; }
+            
+            .secondary-controls-bar { flex-direction: column; align-items: stretch; gap: 12px; padding: 12px 10px; margin-bottom: 20px; }
+            .action-buttons-group { width: 100%; justify-content: space-between; }
+            .settings-controls-group { width: 100%; justify-content: space-between; }
+            .btn-toggle, .btn-books-shortcut { flex: 1; justify-content: center; }
             
             .verse-item { padding: 14px 12px; }
             .books-grid { grid-template-columns: 1fr; gap: 20px; }
@@ -1008,26 +1038,10 @@
             </span>
             Buscador bíblico Ministério 50+
         </h1>
-        
-        <div class="top-controls">
-            <!-- Seletor de Tema -->
-            <div class="theme-selector" role="radiogroup" aria-label="Modo de Leitura">
-                <button class="theme-btn active" id="theme-light" onclick="definirTema('light')" title="Modo Claro">☀️ Claro</button>
-                <button class="theme-btn" id="theme-sepia" onclick="definirTema('sepia')" title="Modo Sépia (Conforto)">📜 Sépia</button>
-                <button class="theme-btn" id="theme-dark" onclick="definirTema('dark')" title="Modo Escuro">🌙 Escuro</button>
-            </div>
-
-            <!-- Controle de Tamanho de Fonte -->
-            <div class="font-controls" aria-label="Ajustar tamanho da fonte">
-                <button onclick="mudarFonte(-0.1)" title="Diminuir tamanho da fonte" aria-label="Diminuir fonte">A-</button>
-                <span class="font-indicator" id="fontIndicator" title="Tamanho atual">100%</span>
-                <button onclick="mudarFonte(0.1)" title="Aumentar tamanho da fonte" aria-label="Aumentar fonte">A+</button>
-            </div>
-        </div>
     </header>
     
-    <!-- Formulário de Busca -->
-    <div class="search-box">
+    <!-- 1º LUGAR: Pesquisa, Versão e Botão Buscar -->
+    <div class="search-box-primary">
         <div class="input-group search-field">
             <label for="searchInput">Referência ou Livro</label>
             <div class="search-input-wrapper">
@@ -1051,12 +1065,41 @@
             </select>
         </div>
 
-        <div class="buttons-group">
-            <button class="btn-search" onclick="buscarTexto()">
+        <div class="search-btn-wrapper">
+            <button class="btn-search" onclick="buscarTexto()" id="btnBuscar" title="Pesquisar passagem bíblica">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 Buscar
             </button>
-            <button class="btn-toggle" id="btnToggleLeitura" onclick="toggleLeitura()" title="Recolher a leitura bíblica">Recolher 🔼</button>
+        </div>
+    </div>
+
+    <!-- 2º LUGAR: Demais Botões e Controles (Abaixo de Pesquisa, Versão e Buscar) -->
+    <div class="secondary-controls-bar">
+        <div class="action-buttons-group">
+            <button class="btn-toggle" id="btnToggleLeitura" onclick="toggleLeitura()" title="Recolher a leitura bíblica">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" id="toggleIcon"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                <span id="toggleText">Recolher Leitura</span>
+            </button>
+            <button class="btn-books-shortcut" onclick="rolarParaIndiceLivros()" title="Ir direto para o índice de livros da Bíblia">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span>Índice de Livros</span>
+            </button>
+        </div>
+
+        <div class="settings-controls-group">
+            <!-- Seletor de Tema -->
+            <div class="theme-selector" role="radiogroup" aria-label="Modo de Leitura">
+                <button class="theme-btn active" id="theme-light" onclick="definirTema('light')" title="Modo Claro">☀️ Claro</button>
+                <button class="theme-btn" id="theme-sepia" onclick="definirTema('sepia')" title="Modo Sépia (Conforto)">📜 Sépia</button>
+                <button class="theme-btn" id="theme-dark" onclick="definirTema('dark')" title="Modo Escuro">🌙 Escuro</button>
+            </div>
+
+            <!-- Controle de Tamanho de Fonte -->
+            <div class="font-controls" aria-label="Ajustar tamanho da fonte">
+                <button onclick="mudarFonte(-0.1)" title="Diminuir tamanho da fonte" aria-label="Diminuir fonte">A-</button>
+                <span class="font-indicator" id="fontIndicator" title="Tamanho atual">100%</span>
+                <button onclick="mudarFonte(0.1)" title="Aumentar tamanho da fonte" aria-label="Aumentar fonte">A+</button>
+            </div>
         </div>
     </div>
 
@@ -1429,17 +1472,28 @@
         }
     }
 
+    function rolarParaIndiceLivros() {
+        const el = document.querySelector('.books-index');
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
     function toggleLeitura() {
         const readingContainer = document.getElementById('readingContainer');
         const btnToggle = document.getElementById('btnToggleLeitura');
+        const toggleText = document.getElementById('toggleText');
+        const toggleIcon = document.getElementById('toggleIcon');
         
         if (readingContainer.style.display === 'none') {
             readingContainer.style.display = 'block';
-            btnToggle.innerHTML = 'Recolher 🔼';
+            if (toggleText) toggleText.textContent = 'Recolher Leitura';
+            if (toggleIcon) toggleIcon.innerHTML = '<polyline points="18 15 12 9 6 15"></polyline>';
             btnToggle.title = 'Recolher a leitura bíblica';
         } else {
             readingContainer.style.display = 'none';
-            btnToggle.innerHTML = 'Expandir 🔽';
+            if (toggleText) toggleText.textContent = 'Expandir Leitura';
+            if (toggleIcon) toggleIcon.innerHTML = '<polyline points="6 9 12 15 18 9"></polyline>';
             btnToggle.title = 'Expandir a leitura bíblica';
         }
     }
@@ -1469,7 +1523,10 @@
             pagContainer.style.display = 'none';
         }
         document.getElementById('readingContainer').style.display = 'block';
-        document.getElementById('btnToggleLeitura').innerHTML = 'Recolher 🔼';
+        const toggleText = document.getElementById('toggleText');
+        const toggleIcon = document.getElementById('toggleIcon');
+        if (toggleText) toggleText.textContent = 'Recolher Leitura';
+        if (toggleIcon) toggleIcon.innerHTML = '<polyline points="18 15 12 9 6 15"></polyline>';
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
