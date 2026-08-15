@@ -46,3 +46,11 @@ Uma aplicação web moderna, acessível, rápida e intuitiva para busca, leitura
    ```bash
    npm start
    ```
+
+---
+
+## 👤 Autor & Desenvolvimento
+
+* **Desenvolvido por:** Agnaldo Fernandes
+* **Projeto:** Buscador Bíblico - Ministério 50+
+
