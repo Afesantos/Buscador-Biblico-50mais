@@ -510,11 +510,87 @@
             justify-content: center;
             gap: 8px;
         }
-        .btn-nav:hover {
+        .btn-nav:hover:not(:disabled) {
             background: var(--primary-color);
             color: #ffffff;
             border-color: var(--primary-color);
             transform: translateY(-1px);
+        }
+        .btn-nav:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+            transform: none;
+        }
+
+        /* Paginação Numérica de Capítulos do Livro */
+        .chapter-pagination {
+            display: none;
+            margin-top: 20px;
+            padding: 20px 16px;
+            background: var(--verse-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+        .chapter-pagination-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .chapter-pagination-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .chapter-pagination-count {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .chapter-num-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+        }
+        .chapter-num-link {
+            min-width: 40px;
+            height: 40px;
+            padding: 0 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-decoration: none;
+            user-select: none;
+        }
+        .chapter-num-link:hover {
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        .chapter-num-link.active {
+            background: var(--primary-color);
+            color: #ffffff;
+            border-color: var(--primary-color);
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
         .welcome-msg {
@@ -951,9 +1027,10 @@
         </div>
 
         <div id="navButtons" class="nav-buttons">
-            <button class="btn-nav" onclick="navegarCapitulo(-1)">&#8592; Capítulo Anterior</button>
-            <button class="btn-nav" onclick="navegarCapitulo(1)">Próximo Capítulo &#8594;</button>
+            <button class="btn-nav" id="btnPrevCap" onclick="navegarCapitulo(-1)">&#8592; Capítulo Anterior</button>
+            <button class="btn-nav" id="btnNextCap" onclick="navegarCapitulo(1)">Próximo Capítulo &#8594;</button>
         </div>
+        <div id="chapterPagination" class="chapter-pagination"></div>
     </div>
 
     <div class="books-index">
@@ -979,7 +1056,7 @@
                     <button class="btn-book" onclick="abrirModalCapitulos('ed')">Esdras</button>
                     <button class="btn-book" onclick="abrirModalCapitulos('ne')">Neemias</button>
                     <button class="btn-book" onclick="abrirModalCapitulos('et')">Ester</button>
-                    <button class="btn-book" onclick="abrirModalCapitulos('jo')">Jó</button>
+                    <button class="btn-book" onclick="abrirModalCapitulos('job')">Jó</button>
                     <button class="btn-book" onclick="abrirModalCapitulos('sl')">Salmos</button>
                     <button class="btn-book" onclick="abrirModalCapitulos('pv')">Provérbios</button>
                     <button class="btn-book" onclick="abrirModalCapitulos('ec')">Eclesiastes</button>
@@ -1011,7 +1088,7 @@
                     <button class="btn-book" onclick="abrirModalCapitulos('mc')">Marcos</button>
                     <button class="btn-book" onclick="abrirModalCapitulos('lc')">Lucas</button>
                     <button class="btn-book" onclick="abrirModalCapitulos('joao')">João</button>
-                    <button class="btn-book" onclick="abrirModalCapitulos('at')">Atos</button>
+                    <button class="btn-book" onclick="abrirModalCapitulos('atos')">Atos</button>
                     <button class="btn-book" onclick="abrirModalCapitulos('rm')">Romanos</button>
                     <button class="btn-book" onclick="abrirModalCapitulos('1co')">1 Coríntios</button>
                     <button class="btn-book" onclick="abrirModalCapitulos('2co')">2 Coríntios</button>
@@ -1059,12 +1136,12 @@
         'gn': 'Gênesis', 'ex': 'Êxodo', 'lv': 'Levítico', 'nm': 'Números', 'dt': 'Deuteronômio',
         'js': 'Josué', 'jz': 'Juízes', 'rt': 'Rute', '1sm': '1 Samuel', '2sm': '2 Samuel',
         '1rs': '1 Reis', '2rs': '2 Reis', '1cr': '1 Crônicas', '2cr': '2 Crônicas', 'ed': 'Esdras',
-        'ne': 'Neemias', 'et': 'Ester', 'jo': 'Jó', 'sl': 'Salmos', 'pv': 'Provérbios',
+        'ne': 'Neemias', 'et': 'Ester', 'job': 'Jó', 'sl': 'Salmos', 'pv': 'Provérbios',
         'ec': 'Eclesiastes', 'ct': 'Cânticos', 'is': 'Isaías', 'jr': 'Jeremias', 'lm': 'Lamentações',
         'ez': 'Ezequiel', 'dn': 'Daniel', 'os': 'Oseias', 'jl': 'Joel', 'am': 'Amós',
         'ob': 'Obadias', 'jn': 'Jonas', 'mq': 'Miqueias', 'na': 'Naum', 'hc': 'Habacuque',
         'sf': 'Sofonias', 'ag': 'Ageu', 'zc': 'Zacarias', 'ml': 'Malaquias',
-        'mt': 'Mateus', 'mc': 'Marcos', 'lc': 'Lucas', 'joao': 'João', 'at': 'Atos',
+        'mt': 'Mateus', 'mc': 'Marcos', 'lc': 'Lucas', 'joao': 'João', 'atos': 'Atos',
         'rm': 'Romanos', '1co': '1 Coríntios', '2co': '2 Coríntios', 'gl': 'Gálatas', 'ef': 'Efésios',
         'fp': 'Filipenses', 'cl': 'Colossenses', '1ts': '1 Tessalonicenses', '2ts': '2 Tessalonicenses',
         '1tm': '1 Timóteo', '2tm': '2 Timóteo', 'tt': 'Tito', 'fm': 'Filemom', 'hb': 'Hebreus',
@@ -1072,31 +1149,100 @@
         '3jo': '3 João', 'jd': 'Judas', 'ap': 'Apocalipse'
     };
 
-    const aliasesLivros = {
-        'genesis': 'gn', 'gen': 'gn', 'gn': 'gn', 'exodo': 'ex', 'ex': 'ex', 'levitico': 'lv', 'lv': 'lv',
-        'numeros': 'nm', 'num': 'nm', 'nm': 'nm', 'deuteronomio': 'dt', 'dt': 'dt', 'josue': 'js', 'js': 'js',
-        'juizes': 'jz', 'jz': 'jz', 'rute': 'rt', 'rt': 'rt', '1samuel': '1sm', '1sm': '1sm', '1s': '1sm',
-        '2samuel': '2sm', '2sm': '2sm', '2s': '2sm', '1reis': '1rs', '1rs': '1rs', '1r': '1rs',
-        '2reis': '2rs', '2rs': '2rs', '2r': '2rs', '1cronicas': '1cr', '1cr': '1cr', '2cronicas': '2cr', '2cr': '2cr',
-        'esdras': 'ed', 'ed': 'ed', 'neemias': 'ne', 'ne': 'ne', 'ester': 'et', 'et': 'et',
-        'jo': 'jo', 'job': 'jo', 'salmos': 'sl', 'salmo': 'sl', 'sl': 'sl', 'ps': 'sl', 'proverbios': 'pv', 'pv': 'pv',
-        'eclesiastes': 'ec', 'ec': 'ec', 'canticos': 'ct', 'cantares': 'ct', 'ct': 'ct',
-        'isaias': 'is', 'is': 'is', 'jeremias': 'jr', 'jr': 'jr', 'lamentacoes': 'lm', 'lm': 'lm',
-        'ezequiel': 'ez', 'ez': 'ez', 'daniel': 'dn', 'dn': 'dn', 'oseias': 'os', 'os': 'os',
-        'joel': 'jl', 'jl': 'jl', 'amos': 'am', 'am': 'am', 'obadias': 'ob', 'ob': 'ob',
-        'jonas': 'jn', 'jn': 'jn', 'miqueias': 'mq', 'mq': 'mq', 'naum': 'na', 'na': 'na',
-        'habacuque': 'hc', 'hc': 'hc', 'sofonias': 'sf', 'sf': 'sf', 'ageu': 'ag', 'ag': 'ag',
-        'zacarias': 'zc', 'zc': 'zc', 'malaquias': 'ml', 'ml': 'ml', 'mateus': 'mt', 'mt': 'mt',
-        'marcos': 'mc', 'mc': 'mc', 'lucas': 'lc', 'lc': 'lc', 'joao': 'joao', 'joh': 'joao',
-        'atos': 'at', 'at': 'at', 'romanos': 'rm', 'rm': 'rm', '1corintios': '1co', '1co': '1co',
-        '2corintios': '2co', '2co': '2co', 'galatas': 'gl', 'gl': 'gl', 'efesios': 'ef', 'ef': 'ef',
-        'filipenses': 'fp', 'fp': 'fp', 'colossenses': 'cl', 'cl': 'cl', '1tessalonicenses': '1ts', '1ts': '1ts',
-        '2tessalonicenses': '2ts', '2ts': '2ts', '1timoteo': '1tm', '1tm': '1tm', '2timoteo': '2tm', '2tm': '2tm',
-        'tito': 'tt', 'tt': 'tt', 'filemom': 'fm', 'fm': 'fm', 'hebreus': 'hb', 'hb': 'hb',
-        'tiago': 'tg', 'tg': 'tg', '1pedro': '1pe', '1pe': '1pe', '1p': '1pe', '2pedro': '2pe', '2pe': '2pe', '2p': '2pe',
-        '1joao': '1jo', '1jo': '1jo', '1j': '1jo', '2joao': '2jo', '2jo': '2jo', '2j': '2jo',
-        '3joao': '3jo', '3jo': '3jo', '3j': '3jo', 'judas': 'jd', 'jd': 'jd', 'apocalipse': 'ap', 'ap': 'ap', 'revelation': 'ap'
+    const mapCanonicoParaIndice = {
+        'gn': 0, 'ex': 1, 'lv': 2, 'nm': 3, 'dt': 4, 'js': 5, 'jz': 6, 'rt': 7,
+        '1sm': 8, '2sm': 9, '1rs': 10, '2rs': 11, '1cr': 12, '2cr': 13, 'ed': 14,
+        'ne': 15, 'et': 16, 'job': 17, 'sl': 18, 'pv': 19, 'ec': 20, 'ct': 21,
+        'is': 22, 'jr': 23, 'lm': 24, 'ez': 25, 'dn': 26, 'os': 27, 'jl': 28,
+        'am': 29, 'ob': 30, 'jn': 31, 'mq': 32, 'na': 33, 'hc': 34, 'sf': 35,
+        'ag': 36, 'zc': 37, 'ml': 38, 'mt': 39, 'mc': 40, 'lc': 41, 'joao': 42,
+        'atos': 43, 'rm': 44, '1co': 45, '2co': 46, 'gl': 47, 'ef': 48, 'fp': 49,
+        'cl': 50, '1ts': 51, '2ts': 52, '1tm': 53, '2tm': 54, 'tt': 55, 'fm': 56,
+        'hb': 57, 'tg': 58, '1pe': 59, '2pe': 60, '1jo': 61, '2jo': 62, '3jo': 63,
+        'jd': 64, 'ap': 65
     };
+
+    const aliasesLivros = {
+        'genesis': 'gn', 'gen': 'gn', 'gn': 'gn', 'ge': 'gn',
+        'exodo': 'ex', 'ex': 'ex', 'exo': 'ex',
+        'levitico': 'lv', 'lv': 'lv', 'lev': 'lv',
+        'numeros': 'nm', 'numero': 'nm', 'num': 'nm', 'nm': 'nm', 'nu': 'nm',
+        'deuteronomio': 'dt', 'dt': 'dt', 'deu': 'dt', 'deut': 'dt',
+        'josue': 'js', 'js': 'js', 'jos': 'js',
+        'juizes': 'jz', 'juiz': 'jz', 'jz': 'jz', 'jui': 'jz',
+        'rute': 'rt', 'rt': 'rt', 'rut': 'rt',
+        '1samuel': '1sm', '1sm': '1sm', '1s': '1sm', '1sam': '1sm',
+        '2samuel': '2sm', '2sm': '2sm', '2s': '2sm', '2sam': '2sm',
+        '1reis': '1rs', '1rs': '1rs', '1r': '1rs', '1re': '1rs', '1rei': '1rs',
+        '2reis': '2rs', '2rs': '2rs', '2r': '2rs', '2re': '2rs', '2rei': '2rs',
+        '1cronicas': '1cr', '1cronica': '1cr', '1cr': '1cr', '1cron': '1cr',
+        '2cronicas': '2cr', '2cronica': '2cr', '2cr': '2cr', '2cron': '2cr',
+        'esdras': 'ed', 'ed': 'ed', 'esd': 'ed',
+        'neemias': 'ne', 'ne': 'ne', 'nee': 'ne',
+        'ester': 'et', 'et': 'et', 'est': 'et',
+        'job': 'job', 'jó': 'job', 'jo': 'job',
+        'salmos': 'sl', 'salmo': 'sl', 'sl': 'sl', 'ps': 'sl', 'psalms': 'sl', 'sal': 'sl',
+        'proverbios': 'pv', 'proverbio': 'pv', 'pv': 'pv', 'prv': 'pv', 'pro': 'pv', 'pr': 'pv',
+        'eclesiastes': 'ec', 'eclesiaste': 'ec', 'ec': 'ec', 'ecl': 'ec',
+        'canticos': 'ct', 'cantico': 'ct', 'cantares': 'ct', 'cantaresdesalomao': 'ct', 'canticosdesalomao': 'ct', 'canticodoscanticos': 'ct', 'ct': 'ct', 'cant': 'ct', 'cnt': 'ct',
+        'isaias': 'is', 'is': 'is', 'isa': 'is',
+        'jeremias': 'jr', 'jr': 'jr', 'jer': 'jr',
+        'lamentacoes': 'lm', 'lamentacao': 'lm', 'lamentacoesdejeremias': 'lm', 'lamentacaodejeremias': 'lm', 'lm': 'lm', 'lam': 'lm',
+        'ezequiel': 'ez', 'ez': 'ez', 'eze': 'ez',
+        'daniel': 'dn', 'dn': 'dn', 'dan': 'dn',
+        'oseias': 'os', 'oseia': 'os', 'os': 'os', 'ose': 'os',
+        'joel': 'jl', 'jl': 'jl', 'joe': 'jl',
+        'amos': 'am', 'am': 'am', 'amo': 'am',
+        'obadias': 'ob', 'ob': 'ob', 'oba': 'ob',
+        'jonas': 'jn', 'jn': 'jn', 'jon': 'jn',
+        'miqueias': 'mq', 'mq': 'mq', 'miq': 'mq',
+        'naum': 'na', 'na': 'na', 'nau': 'na',
+        'habacuque': 'hc', 'habacuc': 'hc', 'hc': 'hc', 'hab': 'hc',
+        'sofonias': 'sf', 'sf': 'sf', 'sof': 'sf',
+        'ageu': 'ag', 'ag': 'ag', 'age': 'ag',
+        'zacarias': 'zc', 'zc': 'zc', 'zac': 'zc',
+        'malaquias': 'ml', 'ml': 'ml', 'mal': 'ml',
+        'mateus': 'mt', 'mt': 'mt', 'mat': 'mt',
+        'marcos': 'mc', 'mc': 'mc', 'mar': 'mc',
+        'lucas': 'lc', 'lc': 'lc', 'luc': 'lc',
+        'joao': 'joao', 'jo': 'joao', 'joh': 'joao',
+        'atos': 'atos', 'at': 'atos', 'act': 'atos', 'atosdosapostolos': 'atos', 'atosdosapostolo': 'atos', 'apostolos': 'atos', 'atosdeapostolos': 'atos',
+        'romanos': 'rm', 'romano': 'rm', 'rm': 'rm', 'rom': 'rm',
+        '1corintios': '1co', '1corintio': '1co', '1co': '1co', '1cor': '1co',
+        '2corintios': '2co', '2corintio': '2co', '2co': '2co', '2cor': '2co',
+        'galatas': 'gl', 'galata': 'gl', 'gl': 'gl', 'gal': 'gl',
+        'efesios': 'ef', 'efesio': 'ef', 'ef': 'ef', 'efe': 'ef',
+        'filipenses': 'fp', 'filipense': 'fp', 'fp': 'fp', 'fil': 'fp', 'flp': 'fp', 'filip': 'fp',
+        'colossenses': 'cl', 'colossense': 'cl', 'cl': 'cl', 'col': 'cl', 'cols': 'cl',
+        '1tessalonicenses': '1ts', '1tessalonicense': '1ts', '1ts': '1ts', '1tes': '1ts', '1tess': '1ts',
+        '2tessalonicenses': '2ts', '2tessalonicense': '2ts', '2ts': '2ts', '2tes': '2ts', '2tess': '2ts',
+        '1timoteo': '1tm', '1tm': '1tm', '1tim': '1tm',
+        '2timoteo': '2tm', '2tm': '2tm', '2tim': '2tm',
+        'tito': 'tt', 'tt': 'tt', 'tit': 'tt',
+        'filemom': 'fm', 'filemon': 'fm', 'fm': 'fm', 'flm': 'fm',
+        'hebreus': 'hb', 'hebreu': 'hb', 'hb': 'hb', 'heb': 'hb',
+        'tiago': 'tg', 'tg': 'tg', 'tia': 'tg', 'tiag': 'tg',
+        '1pedro': '1pe', '1pe': '1pe', '1p': '1pe', '1ped': '1pe',
+        '2pedro': '2pe', '2pe': '2pe', '2p': '2pe', '2ped': '2pe',
+        '1joao': '1jo', '1jo': '1jo', '1j': '1jo', '1joh': '1jo',
+        '2joao': '2jo', '2jo': '2jo', '2j': '2jo', '2joh': '2jo',
+        '3joao': '3jo', '3jo': '3jo', '3j': '3jo', '3joh': '3jo',
+        'judas': 'jd', 'juda': 'jd', 'jd': 'jd', 'jud': 'jd',
+        'apocalipse': 'ap', 'apocalipsedejoao': 'ap', 'revelacao': 'ap', 'revelacoes': 'ap', 'ap': 'ap', 'apoc': 'ap', 'revelation': 'ap', 'rev': 'ap'
+    };
+
+    function obterLivroObj(dados, chaveLivro) {
+        if (!dados || !Array.isArray(dados) || !chaveLivro) return null;
+        const limpa = chaveLivro.toLowerCase().replace(/[\s\-_]/g, '');
+        const chaveCanon = aliasesLivros[limpa] || aliasesLivros[chaveLivro.toLowerCase()] || limpa;
+        const indice = mapCanonicoParaIndice[chaveCanon];
+        if (indice !== undefined && dados[indice]) {
+            return dados[indice];
+        }
+        const normalizar = s => (s || '').toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\s\-_]/g, '');
+        const alvo = normalizar(chaveLivro);
+        return dados.find(l => normalizar(l.abbrev) === alvo || normalizar(l.name) === alvo) || null;
+    }
 
     // Cache local com IndexedDB para máxima performance
     const DB_NAME = 'BuscadorBiblicoDB';
@@ -1252,6 +1398,11 @@
             </div>
         `;
         document.getElementById('navButtons').style.display = 'none';
+        const pagContainer = document.getElementById('chapterPagination');
+        if (pagContainer) {
+            pagContainer.innerHTML = '';
+            pagContainer.style.display = 'none';
+        }
         document.getElementById('readingContainer').style.display = 'block';
         document.getElementById('btnToggleLeitura').innerHTML = 'Recolher 🔼';
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1263,10 +1414,12 @@
         const dados = await carregarBiblia(versao);
         if (!dados) return;
 
-        const livroObj = dados.find(l => l.abbrev.toLowerCase() === abrev.toLowerCase());
+        const livroObj = obterLivroObj(dados, abrev);
         if (!livroObj) return;
 
-        const nomeReal = nomesLivros[livroObj.abbrev.toLowerCase()] || livroObj.name;
+        const limpa = abrev.toLowerCase().replace(/[\s\-_]/g, '');
+        const chaveCanon = aliasesLivros[limpa] || limpa;
+        const nomeReal = nomesLivros[chaveCanon] || nomesLivros[livroObj.abbrev.toLowerCase()] || livroObj.name;
         const totalCaps = livroObj.chapters.length;
 
         document.getElementById('modalTituloLivro').textContent = nomeReal;
@@ -1274,8 +1427,8 @@
 
         let gridHtml = '';
         for (let i = 1; i <= totalCaps; i++) {
-            const activeClass = (estadoAtual.abrev === abrev.toLowerCase() && estadoAtual.capitulo === i) ? 'active' : '';
-            gridHtml += `<button class="chapter-btn ${activeClass}" onclick="selecionarCapituloModal('${abrev}', ${i})">${i}</button>`;
+            const activeClass = (estadoAtual.abrev === chaveCanon && estadoAtual.capitulo === i) ? 'active' : '';
+            gridHtml += `<button class="chapter-btn ${activeClass}" onclick="selecionarCapituloModal('${chaveCanon}', ${i})">${i}</button>`;
         }
 
         document.getElementById('modalGridCapitulos').innerHTML = gridHtml;
@@ -1290,7 +1443,9 @@
 
     function selecionarCapituloModal(abrev, capitulo) {
         fecharModalCapitulos();
-        const nomeReal = nomesLivros[abrev.toLowerCase()] || abrev;
+        const limpa = abrev.toLowerCase().replace(/[\s\-_]/g, '');
+        const chaveCanon = aliasesLivros[limpa] || limpa;
+        const nomeReal = nomesLivros[chaveCanon] || abrev;
         document.getElementById('searchInput').value = `${nomeReal} ${capitulo}`;
         buscarTexto();
     }
@@ -1308,12 +1463,12 @@
         if (!input) return mostrarToast("Por favor, digite uma referência bíblica.");
 
         const parsed = parseReferencia(input);
-        if (!parsed) return mostrarToast("Referência não reconhecida. Exemplos: 'João 3:16', 'Salmo 23', 'Gn 1'.");
+        if (!parsed) return mostrarToast("Referência não reconhecida. Exemplos: 'Atos 2', 'João 3:16', 'Salmo 23', 'Gn 1'.");
 
         const dados = await carregarBiblia(versao);
         if (!dados) return;
 
-        const livroObj = dados.find(l => l.abbrev.toLowerCase() === parsed.abrev);
+        const livroObj = obterLivroObj(dados, parsed.abrev);
         if (!livroObj) return mostrarToast("Livro não encontrado.");
 
         if (parsed.capitulo > livroObj.chapters.length) {
@@ -1338,17 +1493,37 @@
     }
 
     function parseReferencia(texto) {
-        let limpo = texto.toLowerCase()
+        if (!texto) return null;
+        let t = texto.trim();
+
+        // Tratamento inequívoco para Jó
+        if (/\bjó\b/i.test(t) || /\bjob\b/i.test(t) || /\blivro\s+de\s+j[oó]\b/i.test(t)) {
+            t = t.replace(/\b(jó|job)\b/gi, 'job').replace(/\blivro\s+de\s+j[oó]\b/gi, 'job');
+        }
+
+        let limpo = t.toLowerCase()
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "")
             .replace(/[,.]/g, ':') // Suporte a João 3, 16 e João 3.16
-            .replace(/\s+/g, ' ')
-            .trim();
+            .replace(/[°ºª]/g, ' '); // Suporte a ordinais 1ª, 1º, etc.
+
+        // Normalizar ordinais por extenso e numéricos
+        limpo = limpo.replace(/\b(primeir[oa]|1\s*[aoªº°]?|i)\s+/g, '1 ')
+                     .replace(/\b(segund[oa]|2\s*[aoªº°]?|ii)\s+/g, '2 ')
+                     .replace(/\b(terceir[oa]|3\s*[aoªº°]?|iii)\s+/g, '3 ');
+
+        // Remover prefixos comuns de busca bíblica e comando de voz
+        limpo = limpo.replace(/\b(evangelho\s+(de|do|segundo)\s+|carta\s+(de|aos?|a|para)\s+|epistola\s+(de|aos?|a|para)\s+|livro\s+(de|do|da|dos?)\s+|sao\s+|santo\s+|santa\s+)/g, '');
+
+        limpo = limpo.replace(/\s+/g, ' ').trim();
             
-        const match = limpo.match(/^(\d?\s*[a-z]+)\s*(\d+)?(?::\s*(\d+)(?:\s*-\s*(\d+))?)?$/);
+        // Expressão regular com suporte a livros simples e compostos
+        const match = limpo.match(/^(.*?)(?:\s+(\d+))?(?:\s*:\s*(\d+)(?:\s*-\s*(\d+))?)?$/);
         if (!match) return null;
 
-        const strLivro = match[1].replace(/\s/g, '');
+        const strLivro = (match[1] || '').replace(/[\s\-_]/g, '');
+        if (!strLivro) return null;
+
         const abrev = aliasesLivros[strLivro];
         if (!abrev) return null;
 
@@ -1361,7 +1536,9 @@
     }
 
     function renderizarCapitulo(livroObj, numCapitulo, vInicio, vFim) {
-        const nomeReal = nomesLivros[livroObj.abbrev.toLowerCase()] || livroObj.name;
+        const limpa = livroObj.abbrev.toLowerCase().replace(/[\s\-_]/g, '');
+        const chaveCanon = estadoAtual.abrev || aliasesLivros[limpa] || limpa;
+        const nomeReal = nomesLivros[chaveCanon] || nomesLivros[limpa] || livroObj.name;
         const capituloArray = livroObj.chapters[numCapitulo - 1];
         
         let html = `
@@ -1392,7 +1569,68 @@
 
         document.getElementById('results').innerHTML = html;
         document.getElementById('navButtons').style.display = 'flex';
+
+        const btnPrev = document.getElementById('btnPrevCap');
+        const btnNext = document.getElementById('btnNextCap');
+        if (btnPrev) btnPrev.disabled = (numCapitulo <= 1);
+        if (btnNext) btnNext.disabled = (numCapitulo >= livroObj.chapters.length);
+
+        renderizarPaginacaoCapitulos(nomeReal, livroObj.chapters.length, numCapitulo);
         window.scrollTo({ top: document.getElementById('readingContainer').offsetTop - 20, behavior: 'smooth' });
+    }
+
+    function renderizarPaginacaoCapitulos(nomeLivro, totalCaps, capAtual) {
+        const pagContainer = document.getElementById('chapterPagination');
+        if (!pagContainer) return;
+        
+        if (!totalCaps || totalCaps <= 0) {
+            pagContainer.innerHTML = '';
+            pagContainer.style.display = 'none';
+            return;
+        }
+
+        let html = `
+            <div class="chapter-pagination-header">
+                <div class="chapter-pagination-title">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    Capítulos de ${nomeLivro}
+                </div>
+                <div class="chapter-pagination-count">${totalCaps} cap${totalCaps > 1 ? 's' : ''}</div>
+            </div>
+            <div class="chapter-num-list">
+        `;
+
+        for (let i = 1; i <= totalCaps; i++) {
+            const isActive = (i === capAtual) ? 'active' : '';
+            html += `<button type="button" class="chapter-num-link ${isActive}" onclick="irParaCapitulo(${i})" title="${nomeLivro} — Capítulo ${i}" id="cap-link-${i}">${i}</button>`;
+        }
+
+        html += `</div>`;
+        pagContainer.innerHTML = html;
+        pagContainer.style.display = 'block';
+    }
+
+    async function irParaCapitulo(numCapitulo) {
+        fecharMenuVersiculo();
+        if (numCapitulo < 1 || (estadoAtual.totalCapitulos && numCapitulo > estadoAtual.totalCapitulos)) return;
+
+        const versao = document.getElementById('versionSelect').value;
+        const dados = await carregarBiblia(versao);
+        if (!dados) return;
+
+        const livroObj = obterLivroObj(dados, estadoAtual.abrev);
+        if (!livroObj) return;
+
+        estadoAtual.capitulo = numCapitulo;
+        estadoAtual.totalCapitulos = livroObj.chapters.length;
+        estadoAtual.versiculoInicio = null;
+        estadoAtual.versiculoFim = null;
+
+        renderizarCapitulo(livroObj, numCapitulo, null, null);
+        const limpa = estadoAtual.abrev.toLowerCase().replace(/[\s\-_]/g, '');
+        const chaveCanon = aliasesLivros[limpa] || limpa;
+        const nomeLivro = nomesLivros[chaveCanon] || livroObj.name;
+        document.getElementById('searchInput').value = `${nomeLivro} ${numCapitulo}`;
     }
 
     // Menu Suspenso de Contexto ao Tocar no Versículo
@@ -1482,7 +1720,7 @@
         const dados = await carregarBiblia(versao);
         if (!dados) return;
 
-        const livroObj = dados.find(l => l.abbrev.toLowerCase() === estadoAtual.abrev);
+        const livroObj = obterLivroObj(dados, estadoAtual.abrev);
         if (!livroObj) return;
 
         estadoAtual.capitulo = novoCap;
