@@ -1,7 +1,9 @@
 {
   "name": "Buscador Bíblico Ministério 50+",
   "description": "Uma aplicação web leve e acessível para busca e leitura de textos bíblicos.",
-  "requestFramePermissions": [],
+  "requestFramePermissions": [
+    "microphone"
+  ],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
   ]
