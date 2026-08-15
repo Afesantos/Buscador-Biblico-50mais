@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador bíblico Ministério 50+</title>
+    
+    <!-- Importando a fonte Merriweather do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #2c5f9e;
+            --primary-hover: #1e4270;
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            /* Garante que a página tenha 60% da tela sobrando no final para rolagem */
+            padding-bottom: 60vh; 
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        select, input[type="text"] {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        select:focus, input[type="text"]:focus {
+            border-color: var(--primary-color);
+        }
+
+        select {
+            flex: 2;
+            min-width: 300px;
+            background-color: #fff;
+        }
+
+        input[type="text"] {
+            flex: 3;
+            min-width: 200px;
+        }
+
+        .btn-search {
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-search:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .examples {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .examples span {
+            color: var(--primary-color);
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .action-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Botão Ouvir */
+        .btn-audio {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background-color: transparent;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 8px 15px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-audio:hover {
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .btn-audio.playing {
+            background-color: #e0f2fe;
+            color: #0284c7;
+            border-color: #7dd3fc;
+        }
+
+        /* Controles de tamanho da fonte */
+        .font-controls {
+            display: flex;
+            gap: 5px;
+        }
+
+        .font-controls button {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            border-radius: 4px;
+            padding: 5px 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .font-controls button:hover {
+            background-color: #e2e8f0;
+        }
+
+        #results {
+            margin-top: 15px;
+            --verse-font-size: 1.125rem; /* Valor inicial: 18px */
+        }
+
+        /* Estilização do Texto Bíblico */
+        .verse-item {
+            font-family: 'Merriweather', serif;
+            font-weight: 300;
+            font-size: var(--verse-font-size);
+            line-height: 1.4;
+            color: #1e293b;
+            
+            margin-bottom: 0.6em;
+            padding: 12px 16px;
+            border-left: 4px solid var(--primary-color);
+            
+            background: linear-gradient(to right, #ffffff 0%, #cbd5e1 100%);
+            
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        }
+
+        .verse-number {
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 0.6em;
+            vertical-align: super;
+            margin-right: 6px;
+            opacity: 0.9;
+        }
+
+        .error-message {
+            color: #d9534f;
+            background-color: #fdf7f7;
+            padding: 15px;
+            border: 1px solid #d9534f;
+            border-radius: 6px;
+        }
+
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Buscador bíblico Ministério 50+</h1>
+    
+    <div class="search-box">
+        <select id="versionSelect">
+            <option value="pt_acf">Almeida Corrigida Fiel (ACF)</option>
+            <option value="pt_nvi">Nova Versão Internacional (NVI)</option>
+            <option value="pt_aa">Almeida Revisada Imprensa Bíblica (AA)</option>
+        </select>
+        <input type="text" id="searchInput" placeholder="Exemplo: Apocalipse 19 ou João 3:16">
+        <button class="btn-search" onclick="buscarTexto()">Buscar</button>
+    </div>
+
+    <div class="header-actions">
+        <div class="examples">
+            Sugestões: 
+            <span onclick="setExample('Apocalipse 19')">Apocalipse 19</span> | 
+            <span onclick="setExample('João 3:16')">João 3:16</span>
+        </div>
+        
+        <div class="action-group">
+            <button id="btnAudio" onclick="toggleAudio()" class="btn-audio" style="display: none;" title="Ouvir texto bíblico">
+                <span id="btnAudioIcon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path></svg>
+                </span>
+                <span id="btnAudioText">Ouvir</span>
+            </button>
+
+            <div class="font-controls">
+                <button onclick="alterarTamanhoFonte(-0.125)" title="Diminuir fonte">A-</button>
+                <button onclick="alterarTamanhoFonte(0.125)" title="Aumentar fonte">A+</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="results"></div>
+</div>
+
+<br><br><br><br><br>
+
+<script>
+    let tamanhoAtualFonte = 1.125; 
+    let textoCompletoAudio = "";
+    let isPlaying = false;
+    let synth = window.speechSynthesis;
+    let availableVoices = [];
+
+    // Carregar vozes do sistema
+    synth.onvoiceschanged = () => {
+        availableVoices = synth.getVoices();
+    };
+
+    function alterarTamanhoFonte(passo) {
+        tamanhoAtualFonte += passo;
+        if (tamanhoAtualFonte < 0.8) tamanhoAtualFonte = 0.8;
+        if (tamanhoAtualFonte > 2.5) tamanhoAtualFonte = 2.5;
+        document.getElementById('results').style.setProperty('--verse-font-size', tamanhoAtualFonte + 'rem');
+    }
+
+    const bibleCache = {};
+
+    async function carregarBiblia(versao) {
+        if (bibleCache[versao]) return bibleCache[versao];
+        const url = `https://raw.githubusercontent.com/thiagobodruk/bible/master/json/${versao}.json`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Não foi possível carregar a versão da Bíblia selecionada.');
+        const data = await response.json();
+        bibleCache[versao] = data;
+        return data;
+    }
+
+    async function buscarTexto() {
+        pararAudio(); // Para qualquer áudio em andamento ao fazer nova busca
+        document.getElementById('btnAudio').style.display = 'none';
+
+        const version = document.getElementById('versionSelect').value;
+        const query = document.getElementById('searchInput').value.trim();
+        const resultsDiv = document.getElementById('results');
+
+        if (!query) {
+            resultsDiv.innerHTML = '<div class="error-message">Por favor, insira uma referência bíblica para pesquisar.</div>';
+            return;
+        }
+
+        const parsed = parseQuery(query);
+        if (!parsed) {
+            resultsDiv.innerHTML = '<div class="error-message">Formato inválido. Use "Livro Capítulo" (ex: Apocalipse 19) ou "Livro Capítulo:Versículo" (ex: João 3:16).</div>';
+            return;
+        }
+
+        resultsDiv.innerHTML = '<div class="loading">Buscando o texto bíblico...</div>';
+
+        try {
+            const bibleData = await carregarBiblia(version);
+            const targetBook = normBookName(parsed.book);
+            const bookData = bibleData.find(b => 
+                normBookName(b.name || b.book) === targetBook || 
+                (b.abbrev && b.abbrev.toLowerCase() === targetBook)
+            );
+
+            if (!bookData) throw new Error(`Livro '${parsed.book}' não encontrado.`);
+
+            const chapterIndex = parsed.chapter - 1;
+            if (!bookData.chapters[chapterIndex]) throw new Error(`Capítulo ${parsed.chapter} não encontrado no livro.`);
+
+            const chapterVerses = bookData.chapters[chapterIndex];
+            let versesToRender = [];
+
+            if (parsed.verse) {
+                const verseIndex = parsed.verse - 1;
+                if (!chapterVerses[verseIndex]) throw new Error(`Versículo ${parsed.verse} não encontrado no capítulo ${parsed.chapter}.`);
+                versesToRender.push({ verse: parsed.verse, text: chapterVerses[verseIndex] });
+            } else {
+                versesToRender = chapterVerses.map((text, index) => ({ verse: index + 1, text: text }));
+            }
+
+            const translationName = document.getElementById('versionSelect').options[document.getElementById('versionSelect').selectedIndex].text;
+            const refTitle = `${bookData.name || bookData.book} ${parsed.chapter}${parsed.verse ? ':' + parsed.verse : ''}`;
+
+            renderResults(refTitle, translationName, versesToRender);
+
+        } catch (error) {
+            resultsDiv.innerHTML = `<div class="error-message">${error.message}</div>`;
+        }
+    }
+
+    function renderResults(reference, translationName, verses) {
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = '';
+        textoCompletoAudio = `${reference}. `;
+
+        if (reference) {
+            const title = document.createElement('h2');
+            title.style.color = 'var(--primary-color)';
+            title.style.fontFamily = "'Segoe UI', sans-serif";
+            title.textContent = `${reference} - ${translationName}`;
+            resultsDiv.appendChild(title);
+        }
+
+        verses.forEach(v => {
+            const verseElement = document.createElement('div');
+            verseElement.className = 'verse-item';
+            verseElement.innerHTML = `<span class="verse-number">${v.verse}</span>${v.text}`;
+            resultsDiv.appendChild(verseElement);
+            
+            // Concatena o texto sem o número do versículo para o áudio fluir naturalmente
+            textoCompletoAudio += v.text + " ";
+        });
+
+        // Mostra o botão de áudio após carregar o texto
+        document.getElementById('btnAudio').style.display = 'flex';
+    }
+
+    // Controles de Áudio
+    function toggleAudio() {
+        if (isPlaying) {
+            pararAudio();
+        } else {
+            tocarAudio();
+        }
+    }
+
+    function tocarAudio() {
+        if (!textoCompletoAudio) return;
+
+        const utterance = new SpeechSynthesisUtterance(textoCompletoAudio);
+        utterance.lang = 'pt-BR';
+        utterance.rate = 0.95; // Leitura ligeiramente mais pausada e agradável
+        
+        // Seleção otimizada de voz masculina nativa em português brasileiro
+        let ptVoices = availableVoices.filter(v => v.lang === 'pt-BR' || v.lang === 'pt_BR');
+        let vozSelecionada = ptVoices.find(v => 
+            v.name.includes('Daniel') || 
+            v.name.includes('Antonio') || 
+            v.name.includes('Thiago') || 
+            v.name.includes('Ricardo') || 
+            v.name.toLowerCase().includes('masculino') || 
+            v.name.toLowerCase().includes('male')
+        ) || ptVoices[0] || availableVoices[0];
+        
+        if (vozSelecionada) {
+            utterance.voice = vozSelecionada;
+        }
+
+        utterance.onend = () => pararAudio();
+        utterance.onerror = () => pararAudio();
+
+        synth.speak(utterance);
+        isPlaying = true;
+
+        const btnAudio = document.getElementById('btnAudio');
+        btnAudio.classList.add('playing');
+        document.getElementById('btnAudioText').innerText = "Parar";
+        document.getElementById('btnAudioIcon').innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"></rect></svg>`;
+    }
+
+    function pararAudio() {
+        synth.cancel();
+        isPlaying = false;
+        const btnAudio = document.getElementById('btnAudio');
+        if (btnAudio) {
+            btnAudio.classList.remove('playing');
+            document.getElementById('btnAudioText').innerText = "Ouvir";
+            document.getElementById('btnAudioIcon').innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path></svg>`;
+        }
+    }
+
+    function parseQuery(q) {
+        const match = q.match(/^(.+?)\s+(\d+)(?:\s*:\s*(\d+))?$/);
+        if (!match) return null;
+        return {
+            book: match[1].trim(),
+            chapter: parseInt(match[2]),
+            verse: match[3] ? parseInt(match[3]) : null
+        };
+    }
+
+    function normBookName(name) {
+        const n = name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+        const aliases = {
+            '1 samuel': '1 sm', '2 samuel': '2 sm',
+            '1 reis': '1 rs', '2 reis': '2 rs',
+            '1 cronicas': '1 cr', '2 cronicas': '2 cr',
+            'canticos': 'ct', 'cantares': 'ct',
+            'joao': 'jo', '1 joao': '1 jo', '2 joao': '2 jo', '3 joao': '3 jo',
+            'apocalipse': 'ap'
+        };
+        return aliases[n] || n;
+    }
+
+    function setExample(text) {
+        document.getElementById('searchInput').value = text;
+        buscarTexto();
+    }
+
+    document.getElementById('searchInput').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            buscarTexto();
+        }
+    });
+
+    document.getElementById('versionSelect').addEventListener('change', function () {
+        if (document.getElementById('searchInput').value.trim() !== '') {
+            buscarTexto();
+        }
+    });
+</script>
+
+</body>
+</html>
